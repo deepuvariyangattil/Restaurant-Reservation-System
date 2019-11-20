@@ -1,0 +1,46 @@
+<article class="new-RSVN">
+  <header>
+    <h1>Make Reservation</h1>
+  </header>
+  <p>(This description is subject to change)Please provide your info for Reservation. 
+  </p>
+  {{!-- TODO: change action URL --}}
+  <form action="/" method="POST" class="new-RSVN-form" id="new-RSVN-form">
+    <label for="custName">
+      Full Name
+      <input type="text" name="custName" id="custName" placeholder="Full name" value="{{custInput.custName}}"/>
+    </label>
+    <label for="custEmail">
+      Email Address
+      <input type="text" name="custEmail" id="custEmail" placeholder="Email address" value="{{custInput.custEmail}}"/>
+    </label>
+    <label for="custEmail">
+      Phone Number
+      <input type="text" name="custPhone" id="custPhone" placeholder="Phone number" value="{{custInput.custPhone}}"/>
+    </label>
+    {{!-- TODO: change it to drop down or not? --}}
+    <label for="custNumPeople">
+      Number of People
+      <input type="number" name="custNumPeople" id="custNumPeople" placeholder="Number of people" value="{{custInput.custNumPeople}}"/>
+    </label>
+    {{!-- TODO: change it to radio selection --}}
+    <label for="custTime">
+      Reservation Time
+      <input type="text" name="custTime" id="custTime" placeholder="Reservation Time" value="{{custInput.custTime}}"/>
+    </label>
+    <label for="custPref">
+      Reservation Preference
+      <input type="text" name="custPref" id="custPref" placeholder="Reservation Preference" value="{{custInput.custPref}}"/>
+    </label>
+    <button type="submit">Make Reservation</button>
+  </form>
+  {{#if hasErrors}}
+  <ul class="error-list">
+    {{#each errors}}
+    <li>
+      {{this}}
+    </li>
+    {{/each}}
+  </ul>
+  {{/if}}
+</article>
