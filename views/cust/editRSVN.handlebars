@@ -1,23 +1,11 @@
-<article class="new-RSVN">
+<article class="edit-RSVN">
   <header>
-    <h1>Make Reservation</h1>
+    <h1>Edit Reservation</h1>
   </header>
-  <p>(This description is subject to change)Please provide your info for Reservation. 
+  <p>(This description is subject to change)Please edit your reservation. 
   </p>
   {{!-- TODO: change action URL --}}
-  <form action="/" method="POST" class="new-RSVN-form" id="new-RSVN-form">
-    <label for="custName">
-      Full Name
-      <input type="text" name="custName" id="custName" placeholder="Full name" value="{{custInput.custName}}"/>
-    </label>
-    <label for="custEmail">
-      Email Address
-      <input type="text" name="custEmail" id="custEmail" placeholder="Email address" value="{{custInput.custEmail}}"/>
-    </label>
-    <label for="custPhone">
-      Phone Number
-      <input type="text" name="custPhone" id="custPhone" placeholder="Phone number" value="{{custInput.custPhone}}"/>
-    </label>
+  <form action="/" method="POST" class="edit-RSVN-form" id="edit-RSVN-form">
     {{!-- TODO: change it to drop down or not? --}}
     <label for="custNumPeople">
       Number of People
@@ -32,7 +20,8 @@
       Reservation Preference
       <input type="text" name="custPref" id="custPref" placeholder="Reservation Preference" value="{{custInput.custPref}}"/>
     </label>
-    <button type="submit">Make Reservation</button>
+    {{!-- TODO: add delete reservation button --}}
+    <button type="submit">Change Reservation</button>
   </form>
   {{#if hasErrors}}
   <ul class="error-list">

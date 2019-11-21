@@ -1,0 +1,32 @@
+<article class="find-RSVN">
+  <header>
+    <h1>Find Reservation</h1>
+  </header>
+  <p>(This description is subject to change)Please provide info to find your reservation. 
+  </p>
+  {{!-- TODO: change action URL --}}
+  <form action="/" method="POST" class="find-RSVN-form" id="find-RSVN-form">
+    <label for="custRSVNRef">
+      Reservation Number
+      <input type="text" name="custRSVNRef" id="custRSVNRef" placeholder="Reservation Number" value="{{custInput.custRSVNRef}}"/>
+    </label>
+    <label for="custEmail">
+      Email Address
+      <input type="text" name="custEmail" id="custEmail" placeholder="Email address" value="{{custInput.custEmail}}"/>
+    </label>
+    <label for="custPhone">
+      Phone Number
+      <input type="text" name="custPhone" id="custPhone" placeholder="Phone number" value="{{custInput.custPhone}}"/>
+    </label>
+    <button type="submit">Find Reservation</button>
+  </form>
+  {{#if hasErrors}}
+  <ul class="error-list">
+    {{#each errors}}
+    <li>
+      {{this}}
+    </li>
+    {{/each}}
+  </ul>
+  {{/if}}
+</article>
