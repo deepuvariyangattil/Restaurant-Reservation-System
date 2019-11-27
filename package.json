@@ -1,0 +1,28 @@
+{
+  "name": "cs-546-project-group24",
+  "version": "1.0.0",
+  "description": "CS 546 Project(Restaurant Reservation System) Files-Group24",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/deepuvariyangattil/Restaurant-Reservation-System.git"
+  },
+  "author": "Group 24",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/deepuvariyangattil/Restaurant-Reservation-System/issues"
+  },
+  "homepage": "https://github.com/deepuvariyangattil/Restaurant-Reservation-System#readme",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "express": "^4.17.1",
+    "express-handlebars": "^3.1.0",
+    "express-session": "^1.17.0",
+    "handlebars": "^4.5.3",
+    "shortid": "^2.2.15",
+    "xss": "^1.0.6"
+  }
+}
