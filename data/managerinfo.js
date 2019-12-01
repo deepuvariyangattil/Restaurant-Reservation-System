@@ -1,4 +1,4 @@
-const mongoCollections = require("./mongoCollections");
+const mongoCollections = require("../config/mongoCollections");
 const ObjectID = require('mongodb').ObjectID; //got it from stack overflow. it converts string to mongoDB object
 const reservations = mongoCollections.reservations;
 const restaurants = mongoCollections.restaurants;
@@ -24,8 +24,8 @@ async function createManager(name,restregnum,username,password){
     else{
         const newManager={
             name:name,
-            restaurantregistrationnumber=restregnum,
-            username=username,
+            restaurantregistrationnumber:restregnum,
+            username:username,
             password:password
         }
         const mancollection=await managers();

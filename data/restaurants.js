@@ -1,4 +1,4 @@
-const mongoCollections = require("./mongoCollections");
+const mongoCollections = require("../config/mongoCollections");
 const ObjectID = require('mongodb').ObjectID; //got it from stack overflow. it converts string to mongoDB object
 const restaurants = mongoCollections.restaurants;
 
@@ -46,12 +46,13 @@ async function create_Restaurant(name,address,city,state,zipcode,registration,ti
     if(!tablecount){
         throw "Restaurant Table count is empty"
     }
+
     const restCollection=await restaurants();
     const myRest={
-        RestaurantName:name,
-        RestaurantAddress:address,
-        RestaurantCity:city,
-        RestaurantState:state,
+        RestaurantName:name.toLowerCase(),
+        RestaurantAddress:address.toLowerCase(),
+        RestaurantCity:city.toLowerCase(),
+        RestaurantState:state.toLowerCase(),
         RestaurantZip:zipcode,
         RestaurantRegistrationNumber:registration,
         TimeSlots:timeslots,
@@ -119,3 +120,16 @@ async function delete_Restaurant(id){
 }
 
 module.exports={get_Restaurant_id,get_Restaurant_RegistartionNum,get_Restaurants_Name_Or_City,create_Restaurant,updateRestaurant_TimeSlot_TableCount,delete_Restaurant}
+
+
+// async function main(){
+//     try{
+//         //const myrest=await create_Restaurant("Wayne Hills Diner","1465 Hamburg Turnpike","Wayne","New Jersey","07470","AWE123","9.30-10.30,10.30-11.30,11.30-12.30",25);
+//         const myrest=await get_Restaurants_Name_Or_City("hoboken");
+//         console.log(myrest);
+//     }
+//     catch(e){
+//         throw "Restaurant Didn't add"+e;
+//     }
+// }
+// main();

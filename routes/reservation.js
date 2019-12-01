@@ -6,35 +6,82 @@ const data = require("../data");
 const reservationData = data.reservations;
 const restaurantData=data.restaurants;
 
-router.get("/search-result",async(req,res)=>{
+router.get("/find",async(req,res)=>{
     try{
-        let name=req.body.searchname;
-        const restaurants=await restaurantData.get_Restaurants_Name_Or_City(name);
-        res.render('/search-result',{restaurants:restaurants});
+        res.status(200).render("cust/findRSVN");
     }
     catch(e){
-        res.status(404).send("Couldn't find restaurant"+e)
-
+        throw "Find reservation page can't be displayed"+e;
     }
 })
-router.post("/reservation/search/:id",async(req,res)=>{
+router.post("/results",async(req,res)=>{
     try{
-        let name=(req.body.custName).toLower();
-        let email=(req.body.custEmail).toLower();
+
+    let reservationNumber=req.body.editreservationnumber;
+    let reservationEmail=(req.body.editreservationemail).toLowerCase();
+    let reservationPhone=req.body.editreservationphone;
+    let myResv;
+    if(reservationNumber){
+        myResv=await reservationData.get_Reservation_ID(reservationNumber);
+        
+    }
+    else{
+        if(!reservationEmail){
+            throw "Email is absent to search a reservation";
+        }
+        if(!reservationPhone){
+            throw "Phone is absent to search a reservation";
+        }
+        myResv=await  reservationData.get_Email_Phone(reservationEmail,reservationPhone);
+    }
+    if(myResv==null){
+        res.render("cust/errorRSVN",{errormessage:"Invalid Reservation credentials. Please try again with valid credentials"})
+
+    }
+    else{
+        res.render("cust/editRSVN",{custInput:myResv})
+    }
+    
+    }
+    catch(e){
+        throw "Find reservation page can't be found"+e
+    }
+    
+
+})
+router.get("/:id",async(req,res)=>{
+    try{
+        res.status(200).render("cust/newRSVN",{restaurantId:req.params.id});
+    }
+    catch(e){
+       throw "Couldn't load new resevation page"+e;
+    }
+})
+
+router.post("/confirmation",async(req,res)=>{
+    try{
+        let name=(req.body.custName).toLowerCase();
+        let email=(req.body.custEmail).toLowerCase();
         let phone=req.body.custPhone;
         let noOfPeople=req.body.custNumPeople;
         let time=req.body.custTime;
-        let preference=(req.body.custPref).toLower();
+        let preference=(req.body.custPref).toLowerCase();
         let reservationNumber=shortid.generate();
-        let restaurantId=req.params.id;
+        let restaurantId=req.body.restaurantid;
+        
         const restaurant=await restaurantData.get_Restaurant_id(restaurantId);
+        
         let restaurantName=restaurant.RestaurantName;
-
-        const newResv=await reservationData.createReservation(name,email,phone,noOfPeople,restaurantId,restaurantName,null,time,preference,reservationNumber);
-        if(newResv){
-            res.status(200).render("/cust/confirmRSVN",{ReservationNumber:newResv.ReservationNumber})
+        
+        const newResv=await reservationData.createReservation(name,email,phone,noOfPeople,restaurantName,restaurantId,null,time,preference,reservationNumber);
+        if(newResv=="exists"){
+            res.status(200).render("cust/errorRSVN",{errormessage:"Hey You have already reserved a table using same email and phone number. So you can't make new reservation"});
+        }
+        else if(newResv.ReservationNumber){
+            res.status(200).render("cust/confirmRSVN",{ReservationNumber:newResv.ReservationNumber,transaction:"confirmed"})
 
         }
+
         else{
             res.status(400).send("Couldn't add reservation");
         }
@@ -43,56 +90,59 @@ router.post("/reservation/search/:id",async(req,res)=>{
         throw "Couldn't add new reservation"+e;
     }
 })
-req.get("/reservation/search/:id",async(req,res)=>{
-    try{
-        res.status(200).render("/cust/newRSVN");
-    }
-    catch(e){
-       throw "Couldn't load new resevation page"+e;
-    }
-})
-req.get("/reservation/find",async(req,res)=>{
-    try{
-        res.send(200).render("/cust/findRSVN");
-    }
-    catch(e){
-        throw "Find reservation page can't be displayed"+e;
-    }
-})
-req.post("/reservation/find",async(req,res)=>{
+
+
+
+router.put("/confirmation",async(req,res)=>{
     
-    let reservationId,email,phone;
-    let option;
+    
     try{
         
-        if(req.body.custRSVNRef){
-            reservationId=req.body.custRSVNRef;
-            option=1;
+        let noOfPeople=req.body.custNumPeople;
+        let reservationTime=req.body.custTime;
+        let reservationPreference=(req.body.custPref).toLowerCase();
+        let reservationid=req.body.reservationID
+
+        
+
+        const updatedReservation=await reservationData.update_Reservation(reservationid,reservationPreference,noOfPeople,reservationTime);
+        
+        
+        if(updatedReservation==null){
+            res.status(200).render("cust/errorRSVN",{errormessage:"Couldn't update your Reservation"});
         }
         else{
-            if(!req.body.custEmail){
-                throw "Customer email is empty";
-            }
-            else{
-                email=req.body.custEmail;
-            }
-            if(!req.body.custPhone){
-                throw "Customer phone is empty";
-            }
-            else{
-                phone=req.body.custPhone;
-                option=2;
-            }
+            res.status(200).render("cust/confirmRSVN",{ReservationNumber:updatedReservation.ReservationNumber,transaction:"updated"})
         }
 
-        if(option==1){
-            const myResv=await reservationData.get_ID(reservationId);
-        }
-        if(option==2){
-            const myResv=await reservationData.get_Email_Phone(email,phone);
-        }
-
+        
+       
     }
+    catch(e){
+        throw "Couldn't load Edit Reservation Page"+e;
+    }
+})
+
+router.delete("/confirmation",async(req,res)=>{
+    try{
+        let reservationid=req.body.reservationID
+
+        const deletedReservation=await reservationData.delete_Id(reservationid);
+
+        if(deletedReservation){
+            res.render("cust/confirmRSVN",{ReservationNumber:"no longer valid",transaction:"deleted"})
+         }
+        else{
+            res.render("cust/errorRSVN",{errormessage:"Couldn't delete your Reservation"})
+        }
+    }
+    catch(e){
+        throw "Couldn't delete reservation"+e;
+    }
+
+
+    
+
 })
 
 

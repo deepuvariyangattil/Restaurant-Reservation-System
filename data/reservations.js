@@ -1,4 +1,4 @@
-const mongoCollections = require("./mongoCollections");
+const mongoCollections = require("../config/mongoCollections");
 const ObjectID = require('mongodb').ObjectID; //got it from stack overflow. it converts string to mongoDB object
 const reservations = mongoCollections.reservations;
 
@@ -19,6 +19,15 @@ async function get_ID(id){
     const myResv=await reserCollection.findOne({_id:myID});
     return myResv;
 }
+async function get_Reservation_ID(ReserveID){
+    if(!ReserveID){
+        throw "Reservation Id is absent";
+    }
+    const reserCollection=await reservations();
+    const myResvation=await reserCollection.findOne({ReservationNumber:ReserveID});
+    
+    return myResvation;
+}
 async function get_Email_Phone(email,phone){
     if(!email){
         throw "Email not given for getting reservation";
@@ -27,7 +36,17 @@ async function get_Email_Phone(email,phone){
         throw "Email not given for getting reservation";
     }
     const reserCollection=await reservations();
-    const myResv=await reserCollection.find({$and:[{CustomerEmail:email},{CustomerPhone:phone}]});
+   
+    
+    const myResv=await reserCollection.findOne({$and:[{CustomerEmail:email},{CustomerPhone:phone}]});
+    
+    // if(myResv.CustomerName==null){
+    //     return true;
+    // }
+    // else{
+    //     return false;
+    // }
+    //console.log(myResv._id)
     return myResv;
 }
 async function createReservation(name,email,phone,peopleCount,restaurantName,restaurantID,creatorID,reservationTime,preference,reservationNumber){
@@ -40,6 +59,9 @@ async function createReservation(name,email,phone,peopleCount,restaurantName,res
     }
     if(!phone){
         throw "Phone number is absent";
+    }
+    if(!restaurantID){
+        throw "restaurant ID is invalid";
     }
     if(!peopleCount){
         throw "people count is absent";
@@ -56,7 +78,7 @@ async function createReservation(name,email,phone,peopleCount,restaurantName,res
     if(!reservationNumber){
         throw "Reservation number is empty";
     }
-    
+   
     const newReservation={
         CustomerName:name,
         CustomerEmail:email,
@@ -67,12 +89,13 @@ async function createReservation(name,email,phone,peopleCount,restaurantName,res
         CreatorId:myCreaterID,
         ReservationTime:reservationTime,
         CustomerPreference:preference,
-        ReservationNumber:resverationNumber
+        ReservationNumber:reservationNumber
     }
     const reserCollection=await reservations();
-    const myCheck=get_Email_Phone(email,phone);
-    if(myCheck){
-        throw "Reservation already exists for this email+phone combination";
+    const myCheck=await get_Email_Phone(email,phone);
+    
+    if(myCheck!=null){
+        return "exists";
     }
     else{
         const myResv=await reserCollection.insertOne(newReservation);
@@ -80,20 +103,25 @@ async function createReservation(name,email,phone,peopleCount,restaurantName,res
             throw "New reservation not added";
         }
         const newId = myResv.insertedId;
-        const newReserv = await get(newId);
+        
+        const newReserv = await get_ID(newId);
         return newReserv;
     }
     
 }
-async function update_id(id,numberOfPeople,reservationTime){
+async function update_Reservation(id,preference,numberOfPeople,reservationTime){
+    if(!preference){
+        throw "Customer Preference is absent";
+    }
     if(!id){
-        throw "Reservation ID is absent";
+        throw "Reservation ID not present";
     }
     
     
     const reserCollection=await reservations();
     let myID=ObjectID(id);
-    const myResv=await reserCollection.find({_id:myID});
+    const myResv=await get_ID(myID);
+    
     let newResvTime,newNumberPeople;
     if(!numberOfPeople){
         newNumberPeople=myResv.NumberOfPeople;
@@ -107,6 +135,8 @@ async function update_id(id,numberOfPeople,reservationTime){
     else{
         newResvTime=reservationTime;
     }
+
+
     const updatedReservation={
         CustomerName:myResv.CustomerName,
         CustomerEmail:myResv.CustomerEmail,
@@ -116,7 +146,7 @@ async function update_id(id,numberOfPeople,reservationTime){
         RestaurantId:myResv.RestaurantId,
         CreatorId:myResv.CreatorId,
         ReservationTime:newResvTime,
-        CustomerPreference:myResv.CustomerPreference,
+        CustomerPreference:preference,
         ReservationNumber:myResv.ReservationNumber
     }
     const updatedResv=await reserCollection.updateOne({_id:myID},{$set:updatedReservation},{ upsert: true });
@@ -196,4 +226,4 @@ async function delete_Email_Phone(email,phone){
     return 200;
 }
 
-module.exports={get,getAll,get_ID,get_Email_Phone,createReservation,update_id,update_Email_Phone,delete_Id,delete_Email_Phone}
+module.exports={get_Reservation_ID,getAll,get_ID,get_Email_Phone,createReservation,update_Reservation,update_Email_Phone,delete_Id,delete_Email_Phone}

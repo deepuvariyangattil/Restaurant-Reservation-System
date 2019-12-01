@@ -1,0 +1,16 @@
+<h1>Your Table</h1>
+
+<h2>Search Results: {{searchword}}</h2>
+
+
+
+<ul>
+    {{#each restaurantList}}
+    <li>
+        <a href="/reservation/{{this._id}}">{{this.RestaurantName}}</a>
+        <p>{{this.RestaurantAddress}}</p>
+        <p>{{this.RestaurantCity}}</p>
+        <p>{{this.RestaurantState}}</p>
+    </li>
+    {{/each}}
+</ul>
