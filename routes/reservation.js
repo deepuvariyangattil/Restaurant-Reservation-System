@@ -33,6 +33,7 @@ router.post("/results",async(req,res)=>{
             throw "Phone is absent to search a reservation";
         }
         myResv=await  reservationData.get_Email_Phone(reservationEmail,reservationPhone);
+        
     }
     if(myResv==null){
         res.render("cust/errorRSVN",{errormessage:"Invalid Reservation credentials. Please try again with valid credentials"})
