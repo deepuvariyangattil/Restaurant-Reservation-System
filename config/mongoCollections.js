@@ -20,5 +20,6 @@ module.exports = {
   reservations: getCollectionFn("reservations"),
   restaurants:getCollectionFn("restaurants"),
   managerinfo:getCollectionFn("managerinfo"),
+  timetableinfo:getCollectionFn("timetableinfo"),
   userinfo:getCollectionFn("userinfo")
 };
