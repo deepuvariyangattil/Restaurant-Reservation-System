@@ -1,37 +1,41 @@
 
-    <h1>YOUR TABLE-Make Reservation</h1>
+<h1>YOUR TABLE</h1>
+<h3>Make Reservation</h3>
 
-  <p>Please provide your info for Reservation. 
-  </p>
-  {{!-- TODO: change action URL --}}
-  <form action="/reservation/confirmation" method="POST" class="new-RSVN-form" id="new-RSVN-form">
-    <label for="custName">
-      Full Name
-      <input type="text" name="custName" id="custName" placeholder="Full name" />
-    </label>
-    <label for="custEmail">
-      Email Address
-      <input type="text" name="custEmail" id="custEmail" placeholder="Email address" />
-    </label>
-    <label for="custPhone">
-      Phone Number
-      <input type="text" name="custPhone" id="custPhone" placeholder="Phone number" />
-    </label>
-    {{!-- TODO: change it to drop down or not? --}}
-    <label for="custNumPeople">
-      Number of People
-      <input type="number" name="custNumPeople" id="custNumPeople" placeholder="Number of people" />
-    </label>
-    {{!-- TODO: change it to radio selection --}}
-    <label for="custTime">
-      Reservation Time
-      <input type="text" name="custTime" id="custTime" placeholder="Reservation Time" />
-    </label>
-    <label for="custPref">
-      Reservation Preference
-      <input type="text" name="custPref" id="custPref" placeholder="Reservation Preference" />
-    </label>
-    <input type="hidden" name="restaurantid" id="restaurantid" value="{{restaurantId}}">
-    <button type="submit">Make Reservation</button>
-  </form>
+<form action="/reservation/confirmation" method="POST" class="new-RSVN-form" id="new-RSVN-form">
+  <label for="custName">
+    Full Name<br>
+    <input type="text" name="custName" id="custName" /><br>
+  </label>
+
+  <label for="custEmail">
+    Email Address<br>
+    <input type="text" name="custEmail" id="custEmail"/><br>
+  </label>
+
+  <label for="custPhone">
+    Phone Number<br>
+    <input type="text" name="custPhone" id="custPhone" /><br>
+  </label>
+
+  <label for="custNumPeople">
+    Number of People<br>
+    <input type="number" name="custNumPeople" id="custNumPeople"/><br>
+  </label>
+
+  {{!-- TODO: change it to radio selection --}}
+  <label for="custTime">
+    Reservation Time<br>
+    <input type="text" name="custTime" id="custTime" /><br>
+  </label>
+
+  <label for="custPref">
+    Reservation Preference<br>
+    <input type="text" name="custPref" id="custPref" /><br>
+  </label>
+
+  <input type="hidden" name="restaurantid" id="restaurantid" value="{{restaurantId}}">
+
+  <button type="submit">Make Reservation</button>
+</form>
   
