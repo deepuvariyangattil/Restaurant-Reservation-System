@@ -52,7 +52,15 @@ router.post("/results",async(req,res)=>{
 })
 router.get("/:id",async(req,res)=>{
     try{
-        res.status(200).render("cust/newRSVN",{restaurantId:req.params.id});
+        const restaurant = await restaurantData.get_Restaurant_id(req.params.id);
+        let timeOptions = [];
+        for(let i = 0; i < restaurant.TimeSlots.length; i++){
+            let obj = {
+                timeSlot: restaurant.TimeSlots[i]
+            }
+            timeOptions.push(obj);
+        }
+        res.status(200).render("cust/newRSVN",{restaurantId:req.params.id, timeOptions: timeOptions});
     }
     catch(e){
        throw "Couldn't load new resevation page"+e;

@@ -23,14 +23,17 @@
     <input type="number" name="custNumPeople" id="custNumPeople"/><br>
   </label>
 
-  {{!-- TODO: change it to radio selection --}}
   <label for="custTime">
     Reservation Time<br>
-    <input type="text" name="custTime" id="custTime" /><br>
+    <select name="custTime">
+      {{#each timeOptions}}
+        <option value="{{timeSlot}}">{{timeSlot}}</option>
+      {{/each}}
+    </select>
   </label>
 
   <label for="custPref">
-    Reservation Preference<br>
+    <br>Reservation Preference<br>
     <input type="text" name="custPref" id="custPref" /><br>
   </label>
 
