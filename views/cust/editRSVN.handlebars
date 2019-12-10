@@ -1,11 +1,20 @@
 
-    <h1>Edit Reservation</h1>
+<h1>YOUR TABLE</h1>
+<h3>Edit Reservation</h3>
 
+<<<<<<< HEAD
   <p>Please edit your reservation. 
   </p>
+=======
+<form action="/reservation/confirmation?_method=PUT" method="POST" class="edit-RSVN-form" id="edit-RSVN-form">
+>>>>>>> 69eb4102717d59351a8d6d4fd77212a8441ae123
 
-  <form action="/reservation/confirmation?_method=PUT" method="POST" class="edit-RSVN-form" id="edit-RSVN-form">
+  <label for="custNumPeople">
+    Number of People<br>
+    <input type="number" name="custNumPeople" id="custNumPeople"  value="{{custInput.NumberOfPeople}}" /><br>
+  </label>
   
+<<<<<<< HEAD
     <label for="custNumPeople">
       Number of People
       <input type="number" name="custNumPeople" id="custNumPeople" min="1" max="10"  value="{{custInput.NumberOfPeople}}" required/>
@@ -25,8 +34,28 @@
     <input type="hidden" name="reservationID" id="reservationID" value="{{custInput._id}}">
     
     <button type="submit" onclick="return checkEditReservationFields()">Change Reservation</button>
+=======
+  <label for="custTime">
+    Reservation Time<br>
+    <select name="custTime">
+      <option value="{{custInput.ReservationTime}}">{{custInput.ReservationTime}}</option>
+      {{#each otherTimeOptions}}
+        <option value="{{timeSlot}}">{{timeSlot}}</option>
+      {{/each}}
+    </select>
+  </label>
+  
+  <label for="custPref">
+    <br>Reservation Preference<br>
+    <input type="text" name="custPref" id="custPref" value="{{custInput.CustomerPreference}}"/><br>
+  </label>
 
-    <button type="submit" formaction="/reservation/confirmation?_method=DELETE" onclick="return confirm('Are you sure you want to Delete Reservation?')">Delete Reservation</button>
-    
-  </form>
+  <input type="hidden" name="reservationID" id="reservationID" value="{{custInput._id}}">
+  
+  <button type="submit">Change Reservation</button><br>
+>>>>>>> 69eb4102717d59351a8d6d4fd77212a8441ae123
+
+  <button type="submit" formaction="/reservation/confirmation?_method=DELETE" onclick="return confirm('Are you sure you want to Delete Reservation?')">Delete Reservation</button>
+  
+</form>
   

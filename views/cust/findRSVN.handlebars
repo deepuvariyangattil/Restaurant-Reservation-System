@@ -1,15 +1,26 @@
 <h1>YOUR TABLE</h1>
-<h3>Edit Reservation</h3>
+<h3>Find Reservation</h3>
 <form method="POST" action="/reservation/results">
-  <label>Reservation Number:
-    <input type="text" name="editreservationnumber" id="editreservationnumber">
+  <label for="editReservationNum">
+    Reservation Number:<br>
+    <input type="text" name="editReservationNum" id="editReservationNum"><br>
   </label>
+
   <p>OR</p>
-  <label>Email:
-    <input type="email" name="editreservationemail" id="editreservationemail">
+  
+  <label for="editReservationEmail">
+    Email:<br>
+    <input type="email" name="editReservationEmail" id="editReservationEmail"><br>
   </label>
-  <label>Phone:
-    <input type="text" name="editreservationphone" id="editreservationphone">
+
+  <label for="editReservationPhone">
+    Phone:<br>
+    <input type="text" name="editReservationPhone" id="editReservationPhone"><br>
   </label>
+<<<<<<< HEAD
   <button onclick="return checkFindReservation()" name="editreservationbutton" id="editreservationbutton">Find</button>
+=======
+
+  <button name="editReservationButton" id="editReservationButton">Find</button>
+>>>>>>> 69eb4102717d59351a8d6d4fd77212a8441ae123
 </form>
