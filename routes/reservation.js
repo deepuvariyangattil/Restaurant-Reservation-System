@@ -40,7 +40,17 @@ router.post("/results",async(req,res)=>{
 
     }
     else{
-        res.render("cust/editRSVN",{custInput:myResv})
+        const restaurant = await restaurantData.get_Restaurant_id(myResv.RestaurantId);
+        let otherTimeOptions = [];
+        for(let i = 0; i < restaurant.TimeSlots.length; i++){
+            if(restaurant.TimeSlots[i] !== myResv.ReservationTime){
+                let obj = {
+                    timeSlot: restaurant.TimeSlots[i]
+                }
+                otherTimeOptions.push(obj);
+            }
+        }
+        res.render("cust/editRSVN",{custInput:myResv, otherTimeOptions: otherTimeOptions})
     }
     
     }
