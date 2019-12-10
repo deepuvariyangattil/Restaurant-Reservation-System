@@ -25,10 +25,14 @@
     {{!-- TODO: change it to radio selection --}}
     <label for="custTime">
       Reservation Time
+      
       {{#each timearray}}
       
+      
       <input type="radio" name="custTime" id="custTime" value={{ this }}>{{ this }}  
+      
       {{/each}}
+    
 
       <!--<input type="text" name="custTime" id="custTime" placeholder="Reservation Time" />!-->
     </label>
