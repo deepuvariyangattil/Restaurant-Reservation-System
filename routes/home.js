@@ -24,10 +24,11 @@ router.get("/business",async(req,res)=>{
 })
 router.post("/search",async(req,res)=>{
     try{
-        let searchword=xss(req.body.Restaurantsearch);//Now I have Search result.
-        console.log(searchword);
+        let searchword=(xss(req.body.Restaurantsearch)).trim();//Now I have Search result.
         
-        const restaurantList=await restaurantData.get_Restaurants_Name_Or_City(searchword.toLowerCase());
+        let regex = new RegExp([".*", searchword.toLowerCase(), ".*"].join(""), "i");
+        
+        const restaurantList=await restaurantData.get_Restaurants_Name_Or_City(regex);
         res.render("cust/searchRestaurant",{searchword:searchword,restaurantList:restaurantList});
 
     }

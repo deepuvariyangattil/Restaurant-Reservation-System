@@ -319,7 +319,22 @@ router.get('/logout',async(req,res)=>{
      });
 })
 
+router.get("/usernamecheck?",async(req,res)=>{
+    try{
+        username=(req.query.username).toLowerCase();
+        const myManager=await managerData.getMnanager_Username(username);
+        if(myManager==null||myManager==undefined){
+            res.json({title:"User name doesnot exist. congrats!!!"})
+        }
+        else{
+            res.json({title:"User name exist. Try again with different names!!!"})
+        }
 
+    }
+    catch(e){
+        throw "Couldn't find username for AJAX"+e;
+    }
+})
 
 
 

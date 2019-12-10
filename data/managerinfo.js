@@ -69,9 +69,7 @@ async function getMnanager_Username(username){
     }
     const managCollection=await managers();
     const myManager=await managCollection.findOne({username:username});
-    if(!myManager){
-        throw "Manager not found";
-    }
+    
     return myManager;
 }
 async function manager_UpdatePassword(username,password){

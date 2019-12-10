@@ -136,3 +136,22 @@ function checkEditReservationFields(){
      
 
  }
+ 
+    $("#username").change(function(){
+        
+        $.ajax({
+            url:"/manager/usernamecheck",
+            data: {username:($("#username").val()).trim()},
+            type:"GET",
+            dataType:'json',
+            success:function(json){
+                $("#usernamecheck").text(json.title).appendTo('body');
+                
+            },
+            error:function(xhr,status){
+                $("#usernamecheck").text("error happened!!!").appendTo('body');
+                
+            }
+        })
+})
+
