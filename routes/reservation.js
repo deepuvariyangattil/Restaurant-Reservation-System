@@ -18,9 +18,9 @@ router.get("/find",async(req,res)=>{
 router.post("/results",async(req,res)=>{
     try{
 
-    let reservationNumber=xss(req.body.editreservationnumber);
-    let reservationEmail=(xss(req.body.editreservationemail)).toLowerCase();
-    let reservationPhone=xss(req.body.editreservationphone);
+    let reservationNumber=xss(req.body.editReservationNum);
+    let reservationEmail=(xss(req.body.editReservationEmail)).toLowerCase();
+    let reservationPhone=xss(req.body.editReservationPhone);
     let myResv;
     if(reservationNumber){
         myResv=await reservationData.get_Reservation_ID(reservationNumber);

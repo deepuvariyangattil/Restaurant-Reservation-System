@@ -47,7 +47,7 @@ async function create_Restaurant(name,address,city,state,zipcode,registration,ti
         throw "Restaurant Table count is empty"
     }
     //convert time slot string to array
-    let timeSlotArr = timeslots.trim().split(",");
+    //let timeSlotArr = timeslots.trim().split(",");
 
     const restCollection=await restaurants();
     const myRest={
@@ -57,7 +57,7 @@ async function create_Restaurant(name,address,city,state,zipcode,registration,ti
         RestaurantState:state.toLowerCase(),
         RestaurantZip:zipcode,
         RestaurantRegistrationNumber:registration,
-        TimeSlots:timeSlotArr,
+        TimeSlots:timeslots,
         TableCount:tablecount
     }
     const newRest=await restCollection.insertOne(myRest);

@@ -55,10 +55,10 @@ function checkEditReservationFields(){
  }
 
  function checkFindReservation(){
-     let reservationNumber=$("#editreservationnumber").val();
-     let email=$("#editreservationemail").val();
-     let phone=$("#editreservationphone").val();
-
+     let reservationNumber=$("#editReservationNum").val();
+     let email=$("#editReservationEmail").val();
+     let phone=$("#editReservationPhone").val();
+    
      if(!reservationNumber){
          if(email&&phone){
              if(phone.length==10){

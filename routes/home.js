@@ -14,6 +14,14 @@ router.get("/",async(req,res)=>{
     }
 
 })
+router.get("/business",async(req,res)=>{
+    try{
+        res.render("cust/business");
+    }
+    catch(e){
+        throw "Business page is not loaded"+e;
+    }
+})
 router.post("/search",async(req,res)=>{
     try{
         let searchword=xss(req.body.Restaurantsearch);//Now I have Search result.
