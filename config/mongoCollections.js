@@ -21,5 +21,6 @@ module.exports = {
   restaurants:getCollectionFn("restaurants"),
   managerinfo:getCollectionFn("managerinfo"),
   timetableinfo:getCollectionFn("timetableinfo"),
+  tablecountinfo:getCollectionFn("tablecountinfo"),
   userinfo:getCollectionFn("userinfo")
 };

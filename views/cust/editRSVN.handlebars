@@ -1,27 +1,30 @@
 
     <h1>Edit Reservation</h1>
 
-  <p>(This description is subject to change)Please edit your reservation. 
+  <p>Please edit your reservation. 
   </p>
 
   <form action="/reservation/confirmation?_method=PUT" method="POST" class="edit-RSVN-form" id="edit-RSVN-form">
   
     <label for="custNumPeople">
       Number of People
-      <input type="number" name="custNumPeople" id="custNumPeople"  value="{{custInput.NumberOfPeople}}" />
+      <input type="number" name="custNumPeople" id="custNumPeople" min="1" max="10"  value="{{custInput.NumberOfPeople}}" required/>
     </label>
    
     <label for="custTime">
       Reservation Time
-      <input type="text" name="custTime" id="custTime" value="{{custInput.ReservationTime}}"/>
-    </label>
+      {{#each timearray}}
+      
+      <input type="radio" name="custTime" id="custTime" value={{ this }}>{{ this }}  
+      {{/each}}
+
     <label for="custPref">
       Reservation Preference
       <input type="text" name="custPref" id="custPref" value="{{custInput.CustomerPreference}}"/>
     </label>
     <input type="hidden" name="reservationID" id="reservationID" value="{{custInput._id}}">
     
-    <button type="submit">Change Reservation</button>
+    <button type="submit" onclick="return checkEditReservationFields()">Change Reservation</button>
 
     <button type="submit" formaction="/reservation/confirmation?_method=DELETE" onclick="return confirm('Are you sure you want to Delete Reservation?')">Delete Reservation</button>
     

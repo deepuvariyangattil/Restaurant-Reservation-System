@@ -81,35 +81,38 @@ async function manager_UpdatePassword(username,password){
     if(!username){
         throw "username field is empty";
     }
+    
     const managCollection=await managers();
     const myManager=await managCollection.findOne({username:username});
-    if(!myManager){
+    
+    let updatedMnanager;
+    if(myManager==null){
         throw "Manager not found in database";
     }
+    
     else{
-        const updatedMnanager={
-            name:myManager.name,
-            restaurantregistrationnumber:myManager.restaurantregistrationnumber,
-            username:myManager.username,
-            password:password
-        };
-        const updatedData=await managCollection.updateOne({username:username},{$set:updatedMnanager},{upsert:true})
+        updatedMnanager={};
+        updatedMnanager["password"]=password;
+        
+        const updatedData=await managCollection.updateOne({_id:myManager._id},{$set:updatedMnanager})
         if (updatedData.modifiedCount === 0) {
             throw "Couldn't update restaurant successfully";
         }
         else{
             return await getManager(myManager._id);
         }
-         
+            
     }
+     
 }
+
 async function getReservations(username) {
     if(!username){
         throw "username is not given";
     }
     const managCollection=await managers();
     const myManager=await managCollection.findOne({username:username});
-    if(!myNanager){
+    if(!myManager){
         throw "manager not found";
     }
     const restColl=await restaurants();
@@ -122,4 +125,12 @@ async function getReservations(username) {
     return myReserv;
     
 }
-module.exports={createManager,getReservations,manager_UpdatePassword,getMnanager_Username,userNameCheck,getManager}
+async function getReservations_Using_RestaurantId(restaurantId){
+    if(!restaurantId){
+        throw "restaurant id is absent to pull reservations";
+    }
+    const reservColl=await reservations();
+    const myReserv=await reservColl.find({RestaurantId:restaurantId}).toArray();
+    return myReserv;
+}
+module.exports={getReservations_Using_RestaurantId,createManager,getReservations,manager_UpdatePassword,getMnanager_Username,userNameCheck,getManager}

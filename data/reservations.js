@@ -1,6 +1,7 @@
 const mongoCollections = require("../config/mongoCollections");
 const ObjectID = require('mongodb').ObjectID; //got it from stack overflow. it converts string to mongoDB object
 const reservations = mongoCollections.reservations;
+const tablecount=mongoCollections.tablecountinfo;
 
 async function getAll(){
     if (arguments.length >= 1) {

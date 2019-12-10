@@ -20,14 +20,14 @@
 <label>TimeSlots:
     <input type="text" name="restaurantTime" id="restaurantTime" required>
 </label>
-<p>Please provide time slots separated by comma, Eg: 10.30,11.30,12.00</p>
+<p>Please provide time slots in mentioned format(HH:MM) separated by comma in 24 hour format, Eg: 10.30,11.30,12.00,13.00</p>
 <label>Table Count:
     <input type="number" name="restaurantTabNum" id="restaurantTabNum" required>
 </label>
 <label>Zip Code:
     <input type="text" name="restaurantZip" id="restaurantZip" required>
 </label>
-<button type="submit" name="restaurantRegButton" id="restaurantRegButton">Register Restaurant</button>
+<button type="submit" name="restaurantRegButton" id="restaurantRegButton" onclick="return restaurantTimeslotCheck()">Register Restaurant</button>
 
 
 </form>

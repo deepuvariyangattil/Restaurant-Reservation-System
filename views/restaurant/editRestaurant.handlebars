@@ -18,16 +18,16 @@
     <input type="text" name="restaurantRegNum" id="restaurantRegNum" value="{{restaurantInfo.RestaurantRegistrationNumber}}" readonly>
 </label>
 <label>TimeSlots:
-    <input type="text" name="restaurantTime" id="restaurantTime" value="{{restaurantInfo.TimeSlots}}">
+    <input type="text" name="restaurantTime" id="restaurantTime" value="{{restaurantInfo.TimeSlots}}" required>
 </label>
-<p>Please provide time slots separated by comma, Eg: 10.30,11.30,12.00</p>
+<p>Please provide time slots in mentioned format(HH:MM) separated by comma in 24 hour format, Eg: 10.30,11.30,12.00,13.00</p>
 <label>Table Count:
-    <input type="number" name="restaurantTabNum" id="restaurantTabNum" value="{{restaurantInfo.TableCount}}">
+    <input type="number" name="restaurantTabNum" id="restaurantTabNum" value="{{restaurantInfo.TableCount}}" min="1" required>
 </label>
 <label>Zip Code:
     <input type="text" name="restaurantZip" id="restaurantZip" value="{{restaurantInfo.RestaurantZip}}" readonly>
 </label>
-<button type="submit" name="restaurantRegButton" id="restaurantRegButton">Register Restaurant</button>
+<button type="submit" name="restaurantRegButton" id="restaurantRegButton" onclick="return restaurantTimeslotCheck()">Register Restaurant</button>
 
 
 </form>

@@ -1,0 +1,32 @@
+<h1>YOUR TABLE</h1>
+
+<a href="/manager/logout" name="logoutbutton" id="logoutbutton">Logout</a>
+
+<a href="/manager/createreservation" name="createresbutton" id="createresbutton">New Reservation</a>
+
+
+
+
+
+<h3>RESERVATIONS</h3>
+<ol>
+    {{#each reservations}}
+    <li>Reservation Number: {{this.ReservationNumber}}
+        <p>Customer Name: {{this.CustomerName}}</p>
+        <p>Customer Email: {{this.CustomerEmail}}</p>
+        <p>Customer Phone: {{this.CustomerPhone}}</p>
+        <p>Reservation Time: {{this.ReservationTime}}</p>
+        <p>Preference: {{this.CustomerPreference}}</p>
+        <input type="hidden" name="reservationid" id="reservationid" value={{this._id}}>
+        
+        <a href="/manager/editreservation/{{this._id}}" name="editreserbutton" id="editreserbutton">Edit</a>
+        
+        <form action="/manager/home?_method=DELETE" method="POST">
+            <button type="submit" name="deletereserbutton" id="deletereserbutton" value={{this._id}}>Occupy</button>
+        </form>
+        
+    </li>
+    {{/each}}
+</ol>
+
+

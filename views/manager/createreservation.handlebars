@@ -1,0 +1,36 @@
+<h1>YOUR TABLE</h1>
+<a href="/manager/home">Manager Home</a>
+<h3>Create Reservation</h3>
+
+<form action="/manager/confirmreservation" method="POST">
+    <label for="custName">
+      Full Name
+      <input type="text" name="custName" id="custName" placeholder="Full name" />
+    </label>
+    <label for="custEmail">
+      Email Address
+      <input type="text" name="custEmail" id="custEmail" placeholder="Email address" />
+    </label>
+    <label for="custPhone">
+      Phone Number
+      <input type="text" name="custPhone" id="custPhone" placeholder="Phone number" />
+    </label>
+    {{!-- TODO: change it to drop down or not? --}}
+    <label for="custNumPeople">
+      Number of People
+      <input type="number" name="custNumPeople" id="custNumPeople" min="1" max="10" required />
+    </label>
+    {{!-- TODO: change it to radio selection --}}
+    <label for="custTime">
+      Reservation Time
+      {{#each timearray}}
+      
+      <input type="radio" name="custTime" id="custTime" value={{ this }}>{{ this }}  
+      {{/each}}
+    <label for="custPref">
+      Reservation Preference
+      <input type="text" name="custPref" id="custPref" placeholder="Reservation Preference" />
+    </label>
+    <input type="hidden" name="restaurantid" id="restaurantid" value="{{restaurantId}}">
+    <button type="submit" onclick="return checkReservationFields()">Make Reservation</button>
+</form>

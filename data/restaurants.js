@@ -118,8 +118,44 @@ async function delete_Restaurant(id){
     await restCollection.removeOne({_id:ObjectID(id)});
     return 200;
 }
+async function update_TableCount(id,newCount){
+    if(!id){
+        throw "Restaurant Id is empty to update the table count";
+    }
+    if(!newCount){
+        throw "Table count is empty to update";
+    }
+    const restCollection=await restaurants();
+    const updatedRest={};
+    updatedRest["TableCount"]=newCount;
+    const updatedData=await restCollection.updateOne({_id:ObjectID(id)},{$set:updatedRest},{upsert:true});
+    
+    return await get_Restaurant_id(id);
+}
+async function get_TableCount(id){
+    if(!id){
+        throw "Restaurant Id is empty to get the table count";
+    }
+    const restCollection=await restaurants();
+    const myRest=await restCollection.findOne({_id:ObjectID(id)});
+    return myRest.TableCount;
+}
+async function get_Restaurant_Time(restaurantId){
+    if(!restaurantId){
+        throw "Restaurant Id is absent";
+    }
+    const restCollection=await restaurants();
+    const myRest=await restCollection.findOne({_id:ObjectID(restaurantId)});
+    let timeslots=myRest.TimeSlots;
+    let timeArray=timeslots.split(",");
+    return timeArray;
+}
 
-module.exports={get_Restaurant_id,get_Restaurant_RegistartionNum,get_Restaurants_Name_Or_City,create_Restaurant,updateRestaurant_TimeSlot_TableCount,delete_Restaurant}
+
+
+
+
+module.exports={get_Restaurant_Time,get_TableCount,update_TableCount,get_Restaurant_id,get_Restaurant_RegistartionNum,get_Restaurants_Name_Or_City,create_Restaurant,updateRestaurant_TimeSlot_TableCount,delete_Restaurant}
 
 
 // async function main(){

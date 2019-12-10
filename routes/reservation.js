@@ -1,10 +1,11 @@
 const express = require("express");
 const router = express.Router();
 const shortid = require('shortid');
-
+const xss = require('xss');
 const data = require("../data");
 const reservationData = data.reservations;
 const restaurantData=data.restaurants;
+const tableData=data.tablecount;
 
 router.get("/find",async(req,res)=>{
     try{
@@ -17,9 +18,9 @@ router.get("/find",async(req,res)=>{
 router.post("/results",async(req,res)=>{
     try{
 
-    let reservationNumber=req.body.editreservationnumber;
-    let reservationEmail=(req.body.editreservationemail).toLowerCase();
-    let reservationPhone=req.body.editreservationphone;
+    let reservationNumber=xss(req.body.editreservationnumber);
+    let reservationEmail=(xss(req.body.editreservationemail)).toLowerCase();
+    let reservationPhone=xss(req.body.editreservationphone);
     let myResv;
     if(reservationNumber){
         myResv=await reservationData.get_Reservation_ID(reservationNumber);
@@ -40,7 +41,9 @@ router.post("/results",async(req,res)=>{
 
     }
     else{
-        res.render("cust/editRSVN",{custInput:myResv})
+        let restaurantId=myResv.RestaurantId;
+        const reservationTime=await restaurantData.get_Restaurant_Time(restaurantId);
+        res.render("cust/editRSVN",{custInput:myResv,timearray:reservationTime})
     }
     
     }
@@ -52,7 +55,10 @@ router.post("/results",async(req,res)=>{
 })
 router.get("/:id",async(req,res)=>{
     try{
-        res.status(200).render("cust/newRSVN",{restaurantId:req.params.id});
+        let restaurantId=xss(req.params.id);
+        const reservationTime=await restaurantData.get_Restaurant_Time(restaurantId);
+        
+        res.status(200).render("cust/newRSVN",{restaurantId:req.params.id,timearray:reservationTime});
     }
     catch(e){
        throw "Couldn't load new resevation page"+e;
@@ -61,15 +67,15 @@ router.get("/:id",async(req,res)=>{
 
 router.post("/confirmation",async(req,res)=>{
     try{
-        let name=(req.body.custName).toLowerCase();
-        let email=(req.body.custEmail).toLowerCase();
-        let phone=req.body.custPhone;
-        let noOfPeople=req.body.custNumPeople;
-        let time=req.body.custTime;
-        let preference=(req.body.custPref).toLowerCase();
+        let name=(xss(req.body.custName)).toLowerCase();
+        let email=(xss(req.body.custEmail)).toLowerCase();
+        let phone=xss(req.body.custPhone);
+        let noOfPeople=xss(req.body.custNumPeople);
+        let time=xss(req.body.custTime);
+        let preference=(xss(req.body.custPref)).toLowerCase();
         let reservationNumber=shortid.generate();
-        let restaurantId=req.body.restaurantid;
-        
+        let restaurantId=xss(req.body.restaurantid);
+        let updatedCount,existingCount,bookedTable;
         const restaurant=await restaurantData.get_Restaurant_id(restaurantId);
         
         let restaurantName=restaurant.RestaurantName;
@@ -79,12 +85,32 @@ router.post("/confirmation",async(req,res)=>{
             res.status(200).render("cust/errorRSVN",{errormessage:"Hey You have already reserved a table using same email and phone number. So you can't make new reservation"});
         }
         else if(newResv.ReservationNumber){
-            res.status(200).render("cust/confirmRSVN",{ReservationNumber:newResv.ReservationNumber,transaction:"confirmed"})
+            existingCount=await restaurantData.get_TableCount(restaurantId);
+            
+            if(parseInt(noOfPeople)<=4){
+                updatedCount=parseInt(existingCount)-1;
+                bookedTable=1;
+            }
+            else{
+                updatedCount=parseInt(existingCount)-2;
+                bookedTable=2;
+            }
+            const updatedCountdb=await restaurantData.update_TableCount(restaurantId,updatedCount);
+            
+            const updatedTableResev=await tableData.createTableReserved(newResv._id,restaurantId,bookedTable);
+            
+            if(updatedCountdb!=null && updatedTableResev!=null){
+                res.status(200).render("cust/confirmRSVN",{ReservationNumber:newResv.ReservationNumber,transaction:"confirmed"})
+            }
+
+            else{
+                res.render("cust/errorRSVN",{errormessage:"Hey,Couldn't add new reservation. Please try again"});
+            }
 
         }
 
         else{
-            res.status(400).send("Couldn't add reservation");
+            res.render("cust/errorRSVN",{errormessage:"Hey,Couldn't add new reservation. Please try again"});
         }
     }
     catch(e){
@@ -99,24 +125,53 @@ router.put("/confirmation",async(req,res)=>{
     
     try{
         
-        let noOfPeople=req.body.custNumPeople;
-        let reservationTime=req.body.custTime;
-        let reservationPreference=(req.body.custPref).toLowerCase();
-        let reservationid=req.body.reservationID
+        let noOfPeople=xss(req.body.custNumPeople);
+        let reservationTime=xss(req.body.custTime);
+        let reservationPreference=(xss(req.body.custPref)).toLowerCase();
+        let reservationid=xss(req.body.reservationID);
+        let updatedTableCount;
+        let updatedTableReserv,tempCount=0;
+        let existTabCount,newTabCount;
+        const existingReservation=await reservationData.get_ID(reservationid);
+        
+        let existPeople=existingReservation.NumberOfPeople;
+        
+        if(parseInt(noOfPeople)>4 && parseInt(existPeople)<=4){
+            updatedTableCount=2;
+            updatedTableReserv=await tableData.editTableReservation(reservationid,updatedTableCount);
+        }
+        if(parseInt(noOfPeople)<=4 && parseInt(existPeople)>4){
+            updatedTableCount=1;
+            updatedTableReserv=await tableData.editTableReservation(reservationid,updatedTableCount);
+        }
 
-        
-
-        const updatedReservation=await reservationData.update_Reservation(reservationid,reservationPreference,noOfPeople,reservationTime);
-        
-        
-        if(updatedReservation==null){
-            res.status(200).render("cust/errorRSVN",{errormessage:"Couldn't update your Reservation"});
+        existTabCount=await restaurantData.get_TableCount(existingReservation.RestaurantId);
+        if(parseInt(noOfPeople)>4 && parseInt(existPeople)<=4 && parseInt(existTabCount)>=1){
+            newTabCount=parseInt(existTabCount)-1;
+            
+        }
+        else if(parseInt(noOfPeople)<=4 && parseInt(existPeople)>4){
+            newTabCount=parseInt(existTabCount)+1;
+        }
+        else if(parseInt(noOfPeople)>4 && parseInt(existPeople)<=4 && parseInt(existTabCount)<2){
+            tempCount=1;
+            res.status(200).render("cust/errorRSVN",{errormessage:"Couldn't update your Reservation due to table unavailability"});
         }
         else{
-            res.status(200).render("cust/confirmRSVN",{ReservationNumber:updatedReservation.ReservationNumber,transaction:"updated"})
+            newTabCount=parseInt(existTabCount);
+        }
+        if(tempCount==0){
+            const updatedReservation=await reservationData.update_Reservation(reservationid,reservationPreference,noOfPeople,reservationTime);
+            const update_TableCount_DB=await restaurantData.update_TableCount(existingReservation.RestaurantId,newTabCount);
+            if(updatedReservation==null || update_TableCount_DB==null){
+                res.status(200).render("cust/errorRSVN",{errormessage:"Couldn't update your Reservation"});
+            }
+            else{
+                res.status(200).render("cust/confirmRSVN",{ReservationNumber:updatedReservation.ReservationNumber,transaction:"updated"})
+            }
+    
         }
 
-        
        
     }
     catch(e){
@@ -126,11 +181,21 @@ router.put("/confirmation",async(req,res)=>{
 
 router.delete("/confirmation",async(req,res)=>{
     try{
-        let reservationid=req.body.reservationID
-
+        let reservationid=xss(req.body.reservationID);
+        let tableCount,restaurantTableNow,updatedTableCount;
+        const table_Reserv_Info=await tableData.getTableReservation(reservationid);
+        tableCount=table_Reserv_Info.TableBooked;
+        const myReserv=await reservationData.get_ID(reservationid);
+        restaurantTableNow=await restaurantData.get_TableCount(myReserv.RestaurantId);
+        updatedTableCount=parseInt(tableCount)+parseInt(restaurantTableNow);
         const deletedReservation=await reservationData.delete_Id(reservationid);
 
         if(deletedReservation){
+
+            const update_table_DB=await restaurantData.update_TableCount(myReserv.RestaurantId,updatedTableCount);
+            const delete_Table_Reserv=await tableData.deleteTableReservation(reservationid);
+
+
             res.render("cust/confirmRSVN",{ReservationNumber:"no longer valid",transaction:"deleted"})
          }
         else{

@@ -3,6 +3,7 @@ const router = express.Router();
 const data = require("../data");
 const reservationData = data.reservations;
 const restaurantData=data.restaurants;
+const xss = require('xss');
 
 router.get("/create",async(req,res)=>{
     res.render("restaurant/RestaurantRegistration");
@@ -11,14 +12,15 @@ router.get("/create",async(req,res)=>{
 router.post("/confirmation", async(req,res)=>{
 
     try{
-        let restName=(req.body.restaurantName).toLowerCase();
-        let restAddress=(req.body.restaurantAddress).toLowerCase();
-        let restCity=(req.body.restaurantCity).toLowerCase();
-        let restState=(req.body.restaurantState).toLowerCase();
-        let restRegNum=(req.body.restaurantRegNum).trim();
-        let restTimeSlot=req.body.restaurantTime;
-        let restTabCount=req.body.restaurantTabNum;
-        let restZip=req.body.restaurantZip;
+        let restName=(xss(req.body.restaurantName)).toLowerCase();
+        let restAddress=(xss(req.body.restaurantAddress)).toLowerCase();
+        let restCity=(xss(req.body.restaurantCity)).toLowerCase();
+        let restState=(xss(req.body.restaurantState)).toLowerCase();
+        let restRegNum=(xss(req.body.restaurantRegNum)).trim();
+        let restTimeSlot=xss(req.body.restaurantTime);
+        let restTabCount=xss(req.body.restaurantTabNum);
+        let restZip=xss(req.body.restaurantZip);
+        
 
         const existingRest=await restaurantData.get_Restaurant_RegistartionNum(restRegNum);
         if(existingRest){
@@ -30,6 +32,7 @@ router.post("/confirmation", async(req,res)=>{
                 res.render("restaurant/error",{errormessage:"New Restaurant is not added. Please contact administrator."});
             }
             else{
+                
                 res.render("restaurant/confirmRestaurant",{action:"Registered"});
         }
         }
@@ -52,7 +55,7 @@ router.get("/find",async(req,res)=>{
 })
 router.post("/edit",async(req,res)=>{
     try{
-        let restaurantRegNum=(req.body.findRestaurant).trim();
+        let restaurantRegNum=(xss(req.body.findRestaurant)).trim();
 
         const myRestaurant=await restaurantData.get_Restaurant_RegistartionNum(restaurantRegNum);
         if(myRestaurant!=null){
@@ -71,9 +74,9 @@ router.post("/edit",async(req,res)=>{
 })
 router.put("/confirmation",async(req,res)=>{
     try{
-        let restaurantTime=req.body.restaurantTime;
-        let restaurantTable=req.body.restaurantTabNum;
-        let restaurantRegNum=req.body.restaurantRegNum;
+        let restaurantTime=xss(req.body.restaurantTime);
+        let restaurantTable=xss(req.body.restaurantTabNum);
+        let restaurantRegNum=xss(req.body.restaurantRegNum);
         const myRestaurant=await restaurantData.updateRestaurant_TimeSlot_TableCount(restaurantRegNum,restaurantTime,restaurantTable);
         if(myRestaurant!=null){
             res.render("restaurant/confirmRestaurant",{action:"Updated"});

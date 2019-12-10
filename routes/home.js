@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-
+const xss = require('xss');
 const data = require("../data");
 const reservationData = data.reservations;
 const restaurantData=data.restaurants;
@@ -16,7 +16,7 @@ router.get("/",async(req,res)=>{
 })
 router.post("/search",async(req,res)=>{
     try{
-        let searchword=req.body.Restaurantsearch;//Now I have Search result.
+        let searchword=xss(req.body.Restaurantsearch);//Now I have Search result.
         console.log(searchword);
         
         const restaurantList=await restaurantData.get_Restaurants_Name_Or_City(searchword.toLowerCase());
