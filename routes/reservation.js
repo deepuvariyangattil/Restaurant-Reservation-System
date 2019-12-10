@@ -4,7 +4,8 @@ const shortid = require('shortid');
 const xss = require('xss');
 const data = require("../data");
 const reservationData = data.reservations;
-const restaurantData=data.restaurants;const tableData=data.tablecount;
+const restaurantData=data.restaurants;
+const tableData=data.tablecount;
 
 router.get("/find",async(req,res)=>{
     try{
@@ -17,15 +18,9 @@ router.get("/find",async(req,res)=>{
 router.post("/results",async(req,res)=>{
     try{
 
-<<<<<<< HEAD
     let reservationNumber=xss(req.body.editreservationnumber);
     let reservationEmail=(xss(req.body.editreservationemail)).toLowerCase();
     let reservationPhone=xss(req.body.editreservationphone);
-=======
-    let reservationNumber=req.body.editReservationNum;
-    let reservationEmail=(req.body.editReservationEmail).toLowerCase();
-    let reservationPhone=req.body.editReservationPhone;
->>>>>>> 69eb4102717d59351a8d6d4fd77212a8441ae123
     let myResv;
     if(reservationNumber){
         myResv=await reservationData.get_Reservation_ID(reservationNumber);
@@ -46,23 +41,9 @@ router.post("/results",async(req,res)=>{
 
     }
     else{
-<<<<<<< HEAD
         let restaurantId=myResv.RestaurantId;
         const reservationTime=await restaurantData.get_Restaurant_Time(restaurantId);
         res.render("cust/editRSVN",{custInput:myResv,timearray:reservationTime})
-=======
-        const restaurant = await restaurantData.get_Restaurant_id(myResv.RestaurantId);
-        let otherTimeOptions = [];
-        for(let i = 0; i < restaurant.TimeSlots.length; i++){
-            if(restaurant.TimeSlots[i] !== myResv.ReservationTime){
-                let obj = {
-                    timeSlot: restaurant.TimeSlots[i]
-                }
-                otherTimeOptions.push(obj);
-            }
-        }
-        res.render("cust/editRSVN",{custInput:myResv, otherTimeOptions: otherTimeOptions})
->>>>>>> 69eb4102717d59351a8d6d4fd77212a8441ae123
     }
     
     }
@@ -74,22 +55,10 @@ router.post("/results",async(req,res)=>{
 })
 router.get("/:id",async(req,res)=>{
     try{
-<<<<<<< HEAD
         let restaurantId=xss(req.params.id);
         const reservationTime=await restaurantData.get_Restaurant_Time(restaurantId);
         
         res.status(200).render("cust/newRSVN",{restaurantId:req.params.id,timearray:reservationTime});
-=======
-        const restaurant = await restaurantData.get_Restaurant_id(req.params.id);
-        let timeOptions = [];
-        for(let i = 0; i < restaurant.TimeSlots.length; i++){
-            let obj = {
-                timeSlot: restaurant.TimeSlots[i]
-            }
-            timeOptions.push(obj);
-        }
-        res.status(200).render("cust/newRSVN",{restaurantId:req.params.id, timeOptions: timeOptions});
->>>>>>> 69eb4102717d59351a8d6d4fd77212a8441ae123
     }
     catch(e){
        throw "Couldn't load new resevation page"+e;

@@ -1,5 +1,4 @@
 
-<<<<<<< HEAD
     <h1>YOUR TABLE-Make Reservation</h1>
 
   <p>Please provide your info for Reservation. 
@@ -40,48 +39,4 @@
     <input type="hidden" name="restaurantid" id="restaurantid" value="{{restaurantId}}">
     <button type="submit" onclick="return checkReservationFields()">Make Reservation</button>
   </form>
-=======
-<h1>YOUR TABLE</h1>
-<h3>Make Reservation</h3>
-
-<form action="/reservation/confirmation" method="POST" class="new-RSVN-form" id="new-RSVN-form">
-  <label for="custName">
-    Full Name<br>
-    <input type="text" name="custName" id="custName" /><br>
-  </label>
-
-  <label for="custEmail">
-    Email Address<br>
-    <input type="text" name="custEmail" id="custEmail"/><br>
-  </label>
-
-  <label for="custPhone">
-    Phone Number<br>
-    <input type="text" name="custPhone" id="custPhone" /><br>
-  </label>
-
-  <label for="custNumPeople">
-    Number of People<br>
-    <input type="number" name="custNumPeople" id="custNumPeople"/><br>
-  </label>
-
-  <label for="custTime">
-    Reservation Time<br>
-    <select name="custTime">
-      {{#each timeOptions}}
-        <option value="{{timeSlot}}">{{timeSlot}}</option>
-      {{/each}}
-    </select>
-  </label>
-
-  <label for="custPref">
-    <br>Reservation Preference<br>
-    <input type="text" name="custPref" id="custPref" /><br>
-  </label>
-
-  <input type="hidden" name="restaurantid" id="restaurantid" value="{{restaurantId}}">
-
-  <button type="submit">Make Reservation</button>
-</form>
->>>>>>> 69eb4102717d59351a8d6d4fd77212a8441ae123
   
