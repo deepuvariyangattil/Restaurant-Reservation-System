@@ -1,5 +1,10 @@
-  {{!-- TODO: add navigation & remove h1 --}}
-  <h1>YOUR TABLE-Make Reservation</h1>
+<nav class="navbar navbar-light bg-light">
+  <a class="navbar-brand">Your Table</a>
+  <form class="form-inline" method="POST" action="/search">
+    <input class="form-control mr-sm-2" type="search" placeholder="Search City/Restaurant" aria-label="Search" required="true" name="Restaurantsearch" id="Restaurantsearch">
+    <button class="btn btn-outline-success my-2 my-sm-0" type="submit" id="RestaurantSearchButton" name="RestaurantSearchButton">Search</button>
+  </form>
+</nav>
 
 <form action="/reservation/confirmation" method="POST" class="new-RSVN-form" id="new-RSVN-form">
 <fieldset class="form-group">
