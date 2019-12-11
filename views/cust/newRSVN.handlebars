@@ -1,46 +1,65 @@
+  {{!-- TODO: add navigation & remove h1 --}}
+  <h1>YOUR TABLE-Make Reservation</h1>
 
-    <h1>YOUR TABLE-Make Reservation</h1>
+<form action="/reservation/confirmation" method="POST" class="new-RSVN-form" id="new-RSVN-form">
+<fieldset class="form-group">
+  <legend>Contact Information</legend>
+  <div class="form-group row">
+    <label for="custName" class="col-sm-2 col-form-label">Full Name</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" name="custName" id="custName" placeholder="Full name"/>
+    </div>
+  </div>
 
-  <p>Please provide your info for Reservation. 
-  </p>
-  {{!-- TODO: change action URL --}}
-  <form action="/reservation/confirmation" method="POST" class="new-RSVN-form" id="new-RSVN-form">
-    <label for="custName">
-      Full Name
-      <input type="text" name="custName" id="custName" placeholder="Full name" />
-    </label>
-    <label for="custEmail">
-      Email Address
-      <input type="text" name="custEmail" id="custEmail" placeholder="Email address" />
-    </label>
-    <label for="custPhone">
-      Phone Number
-      <input type="text" name="custPhone" id="custPhone" placeholder="Phone number" />
-    </label>
-    {{!-- TODO: change it to drop down or not? --}}
-    <label for="custNumPeople">
-      Number of People
-      <input type="number" name="custNumPeople" id="custNumPeople" min="1" max="10" required />
-    </label>
-    {{!-- TODO: change it to radio selection --}}
-    <label for="custTime">
-      Reservation Time
-      
-      {{#each timearray}}
-      
-      
-      <input type="radio" name="custTime" id="custTime" value={{ this }}>{{ this }}  
-      
-      {{/each}}
-    
+  <div class="form-group row">
+    <label for="custEmail" class="col-sm-2 col-form-label">Email Address</label>
+    <div class="col-sm-10"> 
+      <input type="email" class="form-control" name="custEmail" id="custEmail" placeholder="Email address" />
+    </div> 
+  </div>
 
-      <!--<input type="text" name="custTime" id="custTime" placeholder="Reservation Time" />!-->
-    </label>
-    <label for="custPref">
-      Reservation Preference
-      <input type="text" name="custPref" id="custPref" placeholder="Reservation Preference" />
-    </label>
-    <input type="hidden" name="restaurantid" id="restaurantid" value="{{restaurantId}}">
-    <button type="submit" onclick="return checkReservationFields()">Make Reservation</button>
-  </form>
+  <div class="form-group row">
+    <label for="custPhone" class="col-sm-2 col-form-label">Phone Number</label>
+    <div class="col-sm-10"> 
+      <input type="text" class="form-control" name="custPhone" id="custPhone" placeholder="Phone number" />
+    </div>
+  </div>
+</fieldset>
+
+<fieldset class="form-group">
+  <legend>Reservation Details</legend>
+  <div class="form-group row">
+    <label for="custNumPeople" class="col-sm-2 col-form-label">Number of People</label>
+    <div class="col-sm-10"> 
+    <input type="number" class="form-control" name="custNumPeople" id="custNumPeople" min="1" max="10" required />
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label for="custTime" class="col-sm-2 col-form-label">Reservation Time</label>
+      <div class="col-sm-10">
+        {{#each timearray}}
+        <div class="form-check">
+        <input type="radio" name="custTime" id="custTime" value={{ this }}>{{ this }}  
+        </div>
+        {{/each}}
+      </div>
+  </div>
+
+  <div class="form-group row">
+    <label for="custPref" class="col-sm-2 col-form-label">Reservation Preference</label>
+    <div class="col-sm-10"> 
+      <input type="text"  class="form-control" name="custPref" id="custPref" placeholder="Reservation Preference" />
+    </div>
+  </div>
+</fieldset>
+  
+  <input type="hidden" name="restaurantid" id="restaurantid" value="{{restaurantId}}">
+  
+  <div class="form-group row">
+    <div class="col-sm-10">
+      <button type="submit" class="btn btn-primary" onclick="return checkReservationFields()">Make Reservation</button>
+    </div>
+  </div>
+</form>
   
