@@ -136,7 +136,7 @@ function checkEditReservationFields(){
      
 
  }
- 
+ var flag=true;
     $("#username").change(function(){
         
         $.ajax({
@@ -146,6 +146,13 @@ function checkEditReservationFields(){
             dataType:'json',
             success:function(json){
                 $("#usernamecheck").text(json.title).appendTo('body');
+                if(json.status==false){
+                    flag=false;
+                    
+                }
+                else{
+                    flag=true;
+                }
                 
             },
             error:function(xhr,status){
@@ -154,4 +161,13 @@ function checkEditReservationFields(){
             }
         })
 })
+
+$("#registersubmit").click(function(e){
+    if(flag==false){
+        alert("Username exists. Please change username to new value!!!")
+        e.preventDefault();
+    }
+})
+
+
 
