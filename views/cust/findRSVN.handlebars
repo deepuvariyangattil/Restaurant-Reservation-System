@@ -1,21 +1,30 @@
-<h1>YOUR TABLE</h1>
-<h3>Find Reservation</h3>
 <form method="POST" action="/reservation/results">
-  <label for="editReservationNum">
-    Reservation Number:<br>
-    <input type="text" name="editReservationNum" id="editReservationNum"><br>
-  </label>
+<div class="form-group row">
+  <label for="editReservationNum" class="col-sm-2 col-form-label">Reservation Code</label>
+  <div class="col-sm-10"> 
+    <input type="text" class="form-control" name="editReservationNum" id="editReservationNum" placeholder="Reservation Code"><br>
+  </div> 
+</div>
 
-  <p>OR</p>
-  
-  <label for="editReservationEmail">
-    Email:<br>
-    <input type="email" name="editReservationEmail" id="editReservationEmail"><br>
-  </label>
+<fieldset class="form-group">
+  <legend>OR</legend>
+  <div class="form-group row">
+    <label for="editReservationEmail" class="col-sm-2 col-form-label">Email Address</label>
+    <div class="col-sm-10">
+      <input type="email" class="form-control" name="editReservationEmail" id="editReservationEmail" placeholder="Email address" />
+    </div>
+  </div>
 
-  <label for="editReservationPhone">
-    Phone:<br>
-    <input type="text" name="editReservationPhone" id="editReservationPhone"><br>
-  </label>
-  <button onclick="return checkFindReservation()" name="editreservationbutton" id="editreservationbutton">Find</button>
+  <div class="form-group row">
+    <label for="editReservationPhone" class="col-sm-2 col-form-label">Phone Number</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" name="editReservationPhone" id="editReservationPhone" placeholder="Phone number"/>
+    </div>
+  </div>
+</fieldset>
+<div class="form-group row">
+  <div class="col-sm-10">
+    <button type="submit" class="btn btn-primary" onclick="return checkFindReservation()" name="editreservationbutton" id="editreservationbutton">Find Reservation</button>
+  </div>
+</div>
 </form>
