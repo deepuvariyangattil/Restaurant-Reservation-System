@@ -1,13 +1,19 @@
-{{!-- TODO: styling --}}
-<h2>Search Results: {{searchword}}</h2>
+<h1>Restaurant Found</h1>
+<h2>{{searchword}}</h2>
 
-<ul>
+{{#unless restaurantList.length}}
+<p class="lead">We're sorry, but no results were found for {{searchword}}.</p>
+{{/unless}}
+
+<ul class="list-group">
     {{#each restaurantList}}
-    <li>
-        <a href="/reservation/{{this._id}}">{{this.RestaurantName}}</a>
-        <p>{{this.RestaurantAddress}}</p>
-        <p>{{this.RestaurantCity}}</p>
-        <p>{{this.RestaurantState}}</p>
+    <li class="list-group-item">
+        <a class="list-group-item list-group-item-action active" href="/reservation/{{this._id}}">{{this.RestaurantName}}</a>
+        <ul class="list-group">
+            <li class="list-group-item list-group-item-secondary">{{this.RestaurantAddress}}</li>
+            <li class="list-group-item list-group-item-secondary">{{this.RestaurantCity}}</li>
+            <li class="list-group-item list-group-item-secondary">{{this.RestaurantState}}</li>
+        </ul>
     </li>
     {{/each}}
 </ul>
