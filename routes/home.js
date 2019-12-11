@@ -16,7 +16,7 @@ router.get("/",async(req,res)=>{
 })
 router.get("/business",async(req,res)=>{
     try{
-        res.render("cust/business");
+        res.render("sysAdmin/business");
     }
     catch(e){
         throw "Business page is not loaded"+e;
