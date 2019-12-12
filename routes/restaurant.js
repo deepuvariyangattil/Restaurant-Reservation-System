@@ -18,7 +18,7 @@ router.post("/confirmation", async(req,res)=>{
         let restState=(xss(req.body.restaurantState)).toLowerCase();
         let restRegNum=(xss(req.body.restaurantRegNum)).trim();
         let restTimeSlot=(xss(req.body.restaurantTime)).trim();
-        console.log(restTimeSlot)
+        
         let restTabCount=xss(req.body.restaurantTabNum);
         let restZip=xss(req.body.restaurantZip);
         
