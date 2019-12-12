@@ -19,8 +19,8 @@ In tasks folder: seed for database
 3. Enter command 'npm install'
 4. Go to task folder and enter command 'node seed.js'
 5. Return to parent folder using command 'cd ..'
-6. run the project with command 'npm start'
+6. Run the project with command 'npm start'
 7. Once you see the message "We've now got a server!Your routes will be running on http://localhost:3000" on terminal/cmd then open any browser and go to the link 'http://localhost:3000'.
 # Notes
 ## Database Seed
-1. We have loaded 10 restaurants in Hoboken, Wayne, New York and Jersey City through seed.js.
+ * We have loaded 10 restaurants in Hoboken, Wayne, New York and Jersey City through seed.js.
