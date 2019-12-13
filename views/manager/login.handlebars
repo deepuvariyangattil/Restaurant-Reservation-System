@@ -1,20 +1,26 @@
 
-<h2>Manager Login</h2>
+<h1>Manager Login</h1>
 
 <form action="/manager/home" method="POST" class="manager-login" id="manager-login">
-    <div class="form-group row">
-    <label for="usernamelogin" class="col-sm-2 col-form-label">Username</label>
-    <div class="col-sm-10">
-      <input type="text" class="form-control" name="usernamelogin" id="usernamelogin" />
-    </div>
+<div class="form-group row">
+  <label for="usernamelogin" class="col-sm-2 col-form-label">Username</label>
+  <div class="col-sm-10">
+    <input type="text" class="form-control" name="usernamelogin" id="usernamelogin" />
   </div>
-  <div class="form-group row">
-    <label for="passwordlogin" class="col-sm-2 col-form-label">Password</label>
-    <div class="col-sm-10">
-      <input type="password" class="form-control" name="passwordlogin" id="passwordlogin" />
-    </div>
+</div>
+
+<div class="form-group row">
+  <label for="passwordlogin" class="col-sm-2 col-form-label">Password</label>
+  <div class="col-sm-10">
+    <input type="password" class="form-control" name="passwordlogin" id="passwordlogin" />
   </div>
-    
-    <button type="submit" class="btn btn-primary login-class" name="buttonlogin" id="buttonlogin">Login</button>
-    <a href="/manager/forgot">Forgot Password</a>
+</div>
+
+<div class="form-group row">
+  <div class="col-sm-10">    
+    <button type="submit" class="btn btn-primary" name="buttonlogin" id="buttonlogin">Login</button>
+    <a href="/manager/forgot">Forgot Password?</a>
+  </div>
+</div>
+
 </form>
