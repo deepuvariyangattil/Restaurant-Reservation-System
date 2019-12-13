@@ -1,3 +1,18 @@
 .form-control{
     width: 400px;
 }
+.search-class{
+    margin-left: 20px;
+    margin-right: 20px;
+
+}
+.list-group-item{
+    border:0px solid rgb(255,255,255);
+}
+.login-class{
+    margin-left: 230px;
+}
+.edit-class{
+    margin-left: 230px;
+    display: inline;
+}

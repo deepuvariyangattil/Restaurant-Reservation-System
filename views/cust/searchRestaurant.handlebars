@@ -1,9 +1,12 @@
-<h1>Your Search Keyword:</h1>
-<h2>{{searchword}}</h2>
+<h1>Search Result</h1>
 
-{{#unless restaurantList.length}}
-<p class="lead">We're sorry, but no results were found for {{searchword}}.</p>
-{{/unless}}
+<ul class="list-group">
+    {{#unless restaurantList.length}}
+        <li class="list-group-item list-group-item-warning">We're sorry, but no results were found for {{searchword}}.</li>
+    {{else}}
+        <li class="list-group-item list-group-item-info search-class">Your search keyword: {{searchword}}</li>
+    {{/unless}}
+</ul>
 
 <ul class="list-group">
     {{#each restaurantList}}
