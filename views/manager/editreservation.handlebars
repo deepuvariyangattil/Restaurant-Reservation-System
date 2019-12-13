@@ -1,26 +1,43 @@
-<h1>YOUR TABLE</h1>
-<h2>Edit Reservation</h2>
-<a href="/manager/home" id="homebutton" name="homebutton">Manager Home</a>
-  <form action="/manager/home?_method=PUT" method="POST">
-  
-    <label for="custNumPeople">
-      Number of People
-      <input type="number" name="custNumPeople" id="custNumPeople" min="1" max="10"  value="{{custInput.NumberOfPeople}}" />
-    </label>
-   
-    <label for="custTime">
-      Reservation Time
-      {{#each timearray}}
-      
-      <input type="radio" name="custTime" id="custTime" value={{ this }}>{{ this }}  
-      {{/each}}
-    <label for="custPref">
-      Reservation Preference
-      <input type="text" name="custPref" id="custPref" value="{{custInput.CustomerPreference}}"/>
-    </label>
-    <input type="hidden" name="reservationID" id="reservationID" value="{{custInput._id}}">
-    
-    <button type="submit" onclick="return checkEditReservationFields()">Change Reservation</button>
+<h1>Edit Your Reservation</h1>
 
-  </form>
+<form action="/reservation/confirmation?_method=PUT" method="POST" class="edit-RSVN-form" id="edit-RSVN-form">
+<div class="form-group row">
+  <label for="custNumPeople" class="col-sm-2 col-form-label">Number of People</label>
+  <div class="col-sm-10">
+    <input type="number" class="form-control" name="custNumPeople" id="custNumPeople" min="1" max="10"  value="{{custInput.NumberOfPeople}}" required/>
+  </div>
+</div>
+
+<div class="form-group row">
+  <label for="custTime" class="col-sm-2 col-form-label">Reservation Time</label>
+    <div class="col-sm-10">
+      {{#each timearray}}
+      <div class="form-check">
+      <input type="radio" name="custTime" id="custTime" value={{ this }}>{{ this }}  
+      </div>
+      {{/each}}
+    </div>
+</div>
+
+<div class="form-group row">
+  <label for="custPref" class="col-sm-2 col-form-label">Reservation Preference</label>
+  <div class="col-sm-10">   
+    <input type="text" class="form-control" name="custPref" id="custPref" value="{{custInput.CustomerPreference}}"/>
+  </div>
+</div>
+
+<input type="hidden" name="reservationID" id="reservationID" value="{{custInput._id}}">
+
+<div class="form-group row">
+  <div class="col-sm-10">
+    <button type="submit" class="btn btn-primary" onclick="return checkEditReservationFields()">Change Reservation</button>
+  </div>
+</div>
+
+<div class="form-group row">
+  <div class="col-sm-10">
+    <button type="submit" class="btn btn-danger" formaction="/reservation/confirmation?_method=DELETE" onclick="return confirm('Are you sure you want to Delete Reservation?')">Delete Reservation</button>
+  </div>
+</div>  
+</form>
   
