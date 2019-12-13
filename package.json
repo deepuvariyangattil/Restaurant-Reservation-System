@@ -25,7 +25,7 @@
     "handlebars": "^4.5.3",
     "handlebars-helpers": "^0.10.0",
     "method-override": "^3.0.0",
-    "mongodb": "^3.3.5",
+    "mongodb": "^3.4.0",
     "shortid": "^2.2.15",
     "xss": "^1.0.6"
   }

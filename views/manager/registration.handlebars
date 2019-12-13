@@ -1,26 +1,45 @@
-<h1>YOUR TABLE</h1>
-
-<h2>Manager Registration Page</h2>
-
-<form method="POST" action="/manager/confirmation">
-<label>Name:
-    <input name="managername" id="managername" type="text" required>
-</label>
-<label>Restaurant Registration Number:
-    <input name="restaurantregnumber" id="restaurantregnumber" type="text"  required>
-</label>
-<label>User Name:
-    <input type="text" id="username" name="username" required>
-    <p id="usernamecheck" name="usernamecheck"></p>
-</label>
-<label>Password:
-    <input type="password" id="password" name="password" required>
-</label>
-<label>Confirm Password:
-    <input type="password" id="confirmpassword" name="confirmpassword" required>
-</label>
-<button type"submit" name="registersubmit" id="registersubmit" onclick="return createPasswordMatch()">Register</button>
-</form>
-
-
+<h1>Manager Registration</h1>
+<form method="POST" action="/manager/confirmation" method="POST" class="new-manager-form" id="new-manager-form">
+<fieldset class="form-group">
   
+  <div class="form-group row">
+    <label for="managername" class="col-sm-2 col-form-label">Full Name</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" name="managername" id="managername" placeholder="Full name"/>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label for="restaurantregnumber" class="col-sm-2 col-form-label">Restaurant Registration Number:</label>
+    <div class="col-sm-10"> 
+      <input type="text" class="form-control" name="restaurantregnumber" id="restaurantregnumber" placeholder="Restaurant Number" />
+    </div> 
+  </div>
+
+  <div class="form-group row">
+    <label for="username" class="col-sm-2 col-form-label">User Name</label>
+    <div class="col-sm-10"> 
+      <input type="text" class="form-control" id="username" name="username" placeholder="username" />
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label for="password" class="col-sm-2 col-form-label">Password</label>
+    <div class="col-sm-10"> 
+      <input type="password" class="form-control" id="password" name="password" placeholder="password" />
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label for="confirmpassword" class="col-sm-2 col-form-label">Confirm Password</label>
+    <div class="col-sm-10"> 
+      <input type="password" class="form-control" id="confirmpassword" name="confirmpassword" placeholder="password" />
+    </div>
+  </div>
+</fieldset>
+<div class="form-group row">
+    <div class="col-sm-10">
+      <button type="submit" class="btn btn-primary" onclick="return createPasswordMatch()">Register</button>
+    </div>
+  </div>
+</form>
