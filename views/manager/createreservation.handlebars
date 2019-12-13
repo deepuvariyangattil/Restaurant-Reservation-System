@@ -1,5 +1,17 @@
 <h1>Make New Reservation</h1>
-<a href="/manager/home">Manager Home</a>
+
+<ul class="nav">
+  <li class="nav-item">
+    <a class="nav-link active" href="/manager/home" id="homebutton" name="homebutton">Manager Home</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link active" href="/manager/createreservation" name="createresbutton" id="createresbutton">New Reservation</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link active" href="/manager/logout" name="logoutbutton" id="logoutbutton">Logout</a>
+  </li>
+</ul>
+
 <form action="/reservation/confirmation" method="POST" class="new-RSVN-form" id="new-RSVN-form">
 <fieldset class="form-group">
   <legend>Contact Information</legend>

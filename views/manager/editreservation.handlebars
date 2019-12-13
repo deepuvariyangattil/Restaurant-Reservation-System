@@ -1,6 +1,16 @@
 <h1>Edit Your Reservation</h1>
 
-<a href="/manager/home" id="homebutton" name="homebutton">Manager Home</a>
+<ul class="nav">
+  <li class="nav-item">
+    <a class="nav-link active" href="/manager/home" id="homebutton" name="homebutton">Manager Home</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link active" href="/manager/createreservation" name="createresbutton" id="createresbutton">New Reservation</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link active" href="/manager/logout" name="logoutbutton" id="logoutbutton">Logout</a>
+  </li>
+</ul>
 
 <form action="/reservation/confirmation?_method=PUT" method="POST" class="edit-RSVN-form" id="edit-RSVN-form">
 <div class="form-group row">
