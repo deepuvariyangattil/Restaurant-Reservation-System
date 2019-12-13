@@ -14,12 +14,12 @@ In routes folder: routers for the project
 
 In tasks folder: seed for database
 # Setup
-1. Extract the contents of the zip file.
-2. Open terminal/command prompt and go to extracted folder path.
-3. Enter command 'npm install'
-4. Go to task folder and enter command 'node seed.js'
-5. Return to parent folder using command 'cd ..'
-6. Run the project with command 'npm start'
+1. Use command `git clone` or download the project as zip file from master branch and extract it.
+2. Open terminal/command prompt and go to the project root folder.
+3. Enter command `npm install`
+4. Go to task folder and enter command `node seed.js`
+5. Return to parent folder using command `cd ..`
+6. Run the project with command `npm start`
 7. Once you see the message "We've now got a server!Your routes will be running on http://localhost:3000" on terminal/cmd then open any browser and go to the link 'http://localhost:3000'.
 # Notes
 ## Database Seed
