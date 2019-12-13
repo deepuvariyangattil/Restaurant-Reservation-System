@@ -1,5 +1,7 @@
 <h1>Edit Your Reservation</h1>
 
+<a href="/manager/home" id="homebutton" name="homebutton">Manager Home</a>
+
 <form action="/reservation/confirmation?_method=PUT" method="POST" class="edit-RSVN-form" id="edit-RSVN-form">
 <div class="form-group row">
   <label for="custNumPeople" class="col-sm-2 col-form-label">Number of People</label>
@@ -31,9 +33,13 @@
 <div class="form-group row">
   <div class="col-sm-10">
     <button type="submit" class="btn btn-primary edit-class" onclick="return checkEditReservationFields()">Change Reservation</button>
-    <button type="submit" class="btn btn-danger " formaction="/reservation/confirmation?_method=DELETE" onclick="return confirm('Are you sure you want to Delete Reservation?')">Delete Reservation</button>
   </div>
 </div>
 
+<div class="form-group row">
+  <div class="col-sm-10">
+    <button type="submit" class="btn btn-danger" formaction="/reservation/confirmation?_method=DELETE" onclick="return confirm('Are you sure you want to Delete Reservation?')">Delete Reservation</button>
+  </div>
+</div>  
 </form>
   

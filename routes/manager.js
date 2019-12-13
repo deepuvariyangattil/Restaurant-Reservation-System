@@ -107,7 +107,7 @@ router.get("/editreservation/:id",async(req,res)=>{
         res.render("manager/editreservation",{custInput:myResv,timearray:reservationTime})
     }
     catch(e){
-        throw "Couldn't load edit reservation page"+e;
+        throw "Couldn't load edit reservation page "+e;
     }
 })
 router.get("/createreservation",async(req,res)=>{
@@ -118,7 +118,7 @@ router.get("/createreservation",async(req,res)=>{
     }
     catch(e){
 
-        throw "Couldn't load create reservation from manager"+e;
+        throw "Couldn't load create reservation from manager "+e;
 
     }
 })
@@ -177,7 +177,7 @@ router.put("/home",async(req,res)=>{
        
     }
     catch(e){
-        throw "Couldn't update reservation"+e;
+        throw "Couldn't update reservation "+e;
     }
 })
 router.get("/forgot",async(req,res)=>{
@@ -242,7 +242,7 @@ router.delete("/home",async(req,res)=>{
     
 
 catch(e){
-    throw "Couldn't delete reservation from manager"+e;
+    throw "Couldn't delete reservation from manager "+e;
 }
 })
 
