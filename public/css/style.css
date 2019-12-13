@@ -9,3 +9,10 @@
 .list-group-item{
     border:0px solid rgb(255,255,255);
 }
+.login-class{
+    margin-left: 230px;
+}
+.edit-class{
+    margin-left: 230px;
+    display: inline;
+}
