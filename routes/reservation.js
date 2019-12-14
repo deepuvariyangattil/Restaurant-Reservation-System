@@ -37,13 +37,13 @@ router.post("/results",async(req,res)=>{
         
     }
     if(myResv==null){
-        res.render("cust/errorRSVN",{errormessage:"Invalid Reservation credentials. Please try again with valid credentials"})
+        res.status(200).render("cust/errorRSVN",{errormessage:"Invalid Reservation credentials. Please try again with valid credentials"})
 
     }
     else{
         let restaurantId=myResv.RestaurantId;
         const reservationTime=await restaurantData.get_Restaurant_Time(restaurantId);
-        res.render("cust/editRSVN",{custInput:myResv,timearray:reservationTime})
+        res.status(200).render("cust/editRSVN",{custInput:myResv,timearray:reservationTime})
     }
     
     }
@@ -104,13 +104,13 @@ router.post("/confirmation",async(req,res)=>{
             }
 
             else{
-                res.render("cust/errorRSVN",{errormessage:"Hey,Couldn't add new reservation. Please try again"});
+                res.status(404).render("cust/errorRSVN",{errormessage:"Hey,Couldn't add new reservation. Please try again"});
             }
 
         }
 
         else{
-            res.render("cust/errorRSVN",{errormessage:"Hey,Couldn't add new reservation. Please try again"});
+            res.status(200).render("cust/errorRSVN",{errormessage:"Hey,Couldn't add new reservation. Please try again"});
         }
     }
     catch(e){
@@ -196,10 +196,10 @@ router.delete("/confirmation",async(req,res)=>{
             const delete_Table_Reserv=await tableData.deleteTableReservation(reservationid);
 
 
-            res.render("cust/confirmRSVN",{ReservationNumber:"no longer valid",transaction:"deleted"})
+            res.status(200).render("cust/confirmRSVN",{ReservationNumber:"no longer valid",transaction:"deleted"})
          }
         else{
-            res.render("cust/errorRSVN",{errormessage:"Couldn't delete your Reservation"})
+            res.status(400).render("cust/errorRSVN",{errormessage:"Couldn't delete your Reservation"})
         }
     }
     catch(e){

@@ -25,16 +25,16 @@ router.post("/confirmation", async(req,res)=>{
 
         const existingRest=await restaurantData.get_Restaurant_RegistartionNum(restRegNum);
         if(existingRest){
-            res.render("restaurant/error",{errormessage:"Restaurant already registered. Please check your Registration number or contact administrator."})
+            res.status(400).render("restaurant/error",{errormessage:"Restaurant already registered. Please check your Registration number or contact administrator."})
         }
         else{
             const myRestaurant=await restaurantData.create_Restaurant(restName,restAddress,restCity,restState,restZip,restRegNum,restTimeSlot,restTabCount);
             if(!myRestaurant){
-                res.render("restaurant/error",{errormessage:"New Restaurant is not added. Please contact administrator."});
+                res.status(400).render("restaurant/error",{errormessage:"New Restaurant is not added. Please contact administrator."});
             }
             else{
                 
-                res.render("restaurant/confirmRestaurant",{action:"Registered"});
+                res.status(200).render("restaurant/confirmRestaurant",{action:"Registered"});
         }
         }
         
@@ -48,7 +48,7 @@ router.post("/confirmation", async(req,res)=>{
 
 router.get("/find",async(req,res)=>{
     try{
-        res.render("restaurant/findRestaurant");
+        res.status(200).render("restaurant/findRestaurant");
     }
     catch(e){
         throw " Couldn't load find restaurant page"+e;
@@ -63,7 +63,7 @@ router.post("/edit",async(req,res)=>{
             res.status(200).render("restaurant/editRestaurant",{restaurantInfo:myRestaurant})
         }
         else{
-            res.render("restaurant/error",{errormessage:"Couldn't find any restaurant with given registration number. Please check your Registration Number"})
+            res.status(404).render("restaurant/error",{errormessage:"Couldn't find any restaurant with given registration number. Please check your Registration Number"})
 
         }
 
@@ -80,10 +80,10 @@ router.put("/confirmation",async(req,res)=>{
         let restaurantRegNum=xss(req.body.restaurantRegNum);
         const myRestaurant=await restaurantData.updateRestaurant_TimeSlot_TableCount(restaurantRegNum,restaurantTime,restaurantTable);
         if(myRestaurant!=null){
-            res.render("restaurant/confirmRestaurant",{action:"Updated"});
+            res.status(200).render("restaurant/confirmRestaurant",{action:"Updated"});
         }
         else{
-            res.render("restaurant/errorRestaurant",{errormessage:"Restaurant Update failed. Please try again."});
+            res.tatus(400).render("restaurant/errorRestaurant",{errormessage:"Restaurant Update failed. Please try again."});
         }
     }
     catch(e){

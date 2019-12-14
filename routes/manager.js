@@ -11,7 +11,7 @@ const tableData=data.tablecount;
 
 router.get("/register", async(req,res)=>{
     try{
-        res.render("manager/registration");
+        res.status(200).render("manager/registration");
     }
     catch(e){
         throw "Couldn't register new manager"+e;
@@ -31,7 +31,7 @@ router.post("/confirmation",async(req,res)=>{
             res.status(200).render("manager/confirmation",{action:"Created"})
         }
         else{
-            res.render("manager/error",{errormessage:"Manager Account is not created!!!!"})
+            res.status(404).render("manager/error",{errormessage:"Manager Account is not created!!!!"})
         }
 
 
@@ -44,7 +44,7 @@ router.post("/confirmation",async(req,res)=>{
 
 router.get("/login",async(req,res)=>{
     try{
-        res.render("manager/login");
+        res.status(200).render("manager/login");
     }
     catch(e){
         throw "Couldn't load manager login page";
@@ -73,7 +73,7 @@ router.post("/home",async(req,res)=>{
             }
         }
         else{
-            res.render("manager/error",{errormessage:"Your username or password is wrong. Please try again with correct credentials"});
+            res.status(200).render("manager/error",{errormessage:"Your username or password is wrong. Please try again with correct credentials"});
         }
     }
     catch(e){
@@ -89,7 +89,7 @@ router.get("/home",async(req,res)=>{
         const myReservations=await managerData.getReservations(username);
         
         
-        res.render("manager/home",{reservations:myReservations,restaurantId:restaurantId})
+        res.status(200).render("manager/home",{reservations:myReservations,restaurantId:restaurantId})
     }
     catch(e){
         throw "Couldn't load manager home page"+e;
@@ -104,7 +104,7 @@ router.get("/editreservation/:id",async(req,res)=>{
         let restaurantId=req.session.restaurantId;
         const reservationTime=await restaurantData.get_Restaurant_Time(restaurantId);
 
-        res.render("manager/editreservation",{custInput:myResv,timearray:reservationTime})
+        res.status(200).render("manager/editreservation",{custInput:myResv,timearray:reservationTime})
     }
     catch(e){
         throw "Couldn't load edit reservation page "+e;
@@ -114,7 +114,7 @@ router.get("/createreservation",async(req,res)=>{
     try{
         let restaurantId=req.session.restaurantId; 
         const reservationTime=await restaurantData.get_Restaurant_Time(restaurantId);
-        res.render("manager/createreservation",{restaurantId:restaurantId,timearray:reservationTime});
+        res.status(200).render("manager/createreservation",{restaurantId:restaurantId,timearray:reservationTime});
     }
     catch(e){
 
@@ -169,7 +169,7 @@ router.put("/home",async(req,res)=>{
             }
             else{
                 const myResvData=await managerData.getReservations_Using_RestaurantId(existingReservation.RestaurantId);
-                res.render("manager/home",{reservations:myResvData,restaurantId:existingReservation.RestaurantId})
+                res.status(200).render("manager/home",{reservations:myResvData,restaurantId:existingReservation.RestaurantId})
             }
     
         }
@@ -202,11 +202,11 @@ router.post("/login",async(req,res)=>{
                 res.status(200).render("manager/login");
             }
             else{
-                res.render("manager/error",{errormessage:"Couldn't update password successfully. Please try again."});
+                res.status(200).render("manager/error",{errormessage:"Couldn't update password successfully. Please try again."});
             }
         }
         else{
-            res.render("manager/error",{errormessage:"Credentials are not valid. Please try again with valid credentials."})
+            res.status(200).render("manager/error",{errormessage:"Credentials are not valid. Please try again with valid credentials."})
         }
     }
     catch(e){
@@ -230,7 +230,7 @@ router.delete("/home",async(req,res)=>{
             const update_table_DB=await restaurantData.update_TableCount(myReserv.RestaurantId,updatedTableCount);
             const delete_Table_Reserv=await tableData.deleteTableReservation(reservationid);
             const myResvData=await managerData.getReservations_Using_RestaurantId(myReserv.RestaurantId);
-            res.render("manager/home",{reservations:myResvData,restaurantId:myReserv.RestaurantId})
+            res.status(200).render("manager/home",{reservations:myResvData,restaurantId:myReserv.RestaurantId})
     
     
             
@@ -288,13 +288,13 @@ router.post("/confirmreservation",async(req,res)=>{
             }
 
             else{
-                res.render("manager/error",{errormessage:"Hey,Couldn't add new reservation. Please try again"});
+                res.status(200).render("manager/error",{errormessage:"Hey,Couldn't add new reservation. Please try again"});
             }
 
         }
 
         else{
-            res.render("manager/error",{errormessage:"Hey,Couldn't add new reservation. Please try again"});
+            res.status(404).render("manager/error",{errormessage:"Hey,Couldn't add new reservation. Please try again"});
         }
     }
     catch(e){
@@ -308,7 +308,7 @@ router.get('/logout',async(req,res)=>{
     req.session.destroy(async ()=>{
         try{
             if(!req.session){
-                res.redirect('/');
+                res.status(200).redirect('/');
             }
             
         }

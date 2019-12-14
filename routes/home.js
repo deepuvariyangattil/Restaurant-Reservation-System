@@ -7,7 +7,7 @@ const restaurantData=data.restaurants;
 
 router.get("/",async(req,res)=>{
     try{
-        res.render('cust/homepage');
+        res.status(200).render('cust/homepage');
     }
     catch(e){
         res.status(404).send("Homepage not found");
@@ -29,7 +29,7 @@ router.post("/search",async(req,res)=>{
         let regex = new RegExp([".*", searchword.toLowerCase(), ".*"].join(""), "i");
         
         const restaurantList=await restaurantData.get_Restaurants_Name_Or_City(regex);
-        res.render("cust/searchRestaurant",{searchword:searchword,restaurantList:restaurantList});
+        res.status(200).render("cust/searchRestaurant",{searchword:searchword,restaurantList:restaurantList});
 
     }
     catch(e){
