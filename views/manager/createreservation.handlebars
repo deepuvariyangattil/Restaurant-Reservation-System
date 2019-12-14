@@ -1,6 +1,18 @@
 <h1>Make New Reservation</h1>
-<a href="/manager/home">Manager Home</a>
-<form action="/reservation/confirmation" method="POST" class="new-RSVN-form" id="new-RSVN-form">
+
+<ul class="nav">
+  <li class="nav-item">
+    <a class="nav-link active" href="/manager/home" id="homebutton" name="homebutton">Manager Home</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link active" href="/manager/createreservation" name="createresbutton" id="createresbutton">New Reservation</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link active" href="/manager/logout" name="logoutbutton" id="logoutbutton">Logout</a>
+  </li>
+</ul>
+
+<form action="/manager/confirmreservation" method="POST" class="new-RSVN-form" id="new-RSVN-form">
 <fieldset class="form-group">
   <legend>Contact Information</legend>
   <div class="form-group row">
@@ -57,7 +69,7 @@
   
   <div class="form-group row">
     <div class="col-sm-10">
-      <button type="submit" class="btn btn-primary login-class" onclick="return checkReservationFields()">Make Reservation</button>
+      <button type="submit" class="btn btn-primary" onclick="return checkReservationFields()">Make Reservation</button>
     </div>
   </div>
 </form>

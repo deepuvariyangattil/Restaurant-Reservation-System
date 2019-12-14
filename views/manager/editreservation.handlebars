@@ -1,8 +1,18 @@
 <h1>Edit Your Reservation</h1>
 
-<a href="/manager/home" id="homebutton" name="homebutton">Manager Home</a>
+<ul class="nav">
+  <li class="nav-item">
+    <a class="nav-link active" href="/manager/home" id="homebutton" name="homebutton">Manager Home</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link active" href="/manager/createreservation" name="createresbutton" id="createresbutton">New Reservation</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link active" href="/manager/logout" name="logoutbutton" id="logoutbutton">Logout</a>
+  </li>
+</ul>
 
-<form action="/reservation/confirmation?_method=PUT" method="POST" class="edit-RSVN-form" id="edit-RSVN-form">
+<form action="/manager/home?_method=PUT" method="POST" class="edit-RSVN-form" id="edit-RSVN-form">
 <div class="form-group row">
   <label for="custNumPeople" class="col-sm-2 col-form-label">Number of People</label>
   <div class="col-sm-10">
@@ -32,7 +42,7 @@
 
 <div class="form-group row">
   <div class="col-sm-10">
-    <button type="submit" class="btn btn-primary edit-class" onclick="return checkEditReservationFields()">Change Reservation</button>
+    <button type="submit" class="btn btn-primary" onclick="return checkEditReservationFields()">Change Reservation</button>
   </div>
 </div>
 

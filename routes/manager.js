@@ -324,10 +324,10 @@ router.get("/usernamecheck?",async(req,res)=>{
         username=(req.query.username).toLowerCase();
         const myManager=await managerData.getMnanager_Username(username);
         if(myManager==null||myManager==undefined){
-            res.json({title:"User name doesnot exist. congrats!!!",status:true})
+            res.json({title:"Username is available for registration.",status:true})
         }
         else{
-            res.json({title:"User name exist. Try again with different names!!!",status:false})
+            res.json({title:"Username already exists. Please try again with a different name.",status:false})
         }
 
     }
