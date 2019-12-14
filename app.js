@@ -25,6 +25,17 @@ app.use(session({
   saveUninitialized: true
 }))
 
+
+app.get("/manager/login",function(req,res,next){
+  if(req.session.userLoggedIn){
+    res.redirect("/manager/home");
+  }
+  else{
+    next();
+  }
+})
+
+
 app.get("/manager/home",function(req,res,next){
   if(!req.session.userLoggedIn){
     res.status(403).render('manager/error',{errormessage:"user is not logged in. Please login fIrst"});
