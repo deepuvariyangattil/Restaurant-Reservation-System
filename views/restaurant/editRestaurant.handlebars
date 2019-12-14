@@ -1,33 +1,79 @@
-<h1>YOUR TABLE</h1>
-<h2>Restaurant Registration Edit Page</h2>
+<h1>Edit Restaurant</h1>
+
+<ul class="nav">
+  <li class="nav-item">
+    <a class="nav-link active" href="/restaurant/create">Restaurant Registration</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link active" href="/manager/register">Manager Registration</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link active" href="/restaurant/find">Edit Restaurant Details</a>
+  </li>
+</ul>
 
 <form method="POST" action="/restaurant/confirmation?_method=PUT">
-<label>Restaurant Name:
-    <input type="text" name="restaurantName" id="restaurantName" value="{{restaurantInfo.RestaurantName}}" readonly>
-</label>
-<label>Restaurant Address:
-    <input type="text" name="restaurantAddress" id="restaurantAddress" value="{{restaurantInfo.RestaurantAddress}}" readonly>
-</label>
-<label>Restaurant City:
-    <input type="text" name="restaurantCity" id="restaurantCity" value="{{restaurantInfo.RestaurantCity}}" readonly>
-</label>
-<label>Restaurant State:
-    <input type="text" name="restaurantState" id="restaurantState" value="{{restaurantInfo.RestaurantState}}" readonly>
-</label>
-<label>Restaurant Registration Number:
-    <input type="text" name="restaurantRegNum" id="restaurantRegNum" value="{{restaurantInfo.RestaurantRegistrationNumber}}" readonly>
-</label>
-<label>TimeSlots:
-    <input type="text" name="restaurantTime" id="restaurantTime" value="{{restaurantInfo.TimeSlots}}" required>
-</label>
-<p>Please provide time slots in mentioned format(HH:MM) separated by comma in 24 hour format, Eg: 10.30,11.30,12.00,13.00</p>
-<label>Table Count:
-    <input type="number" name="restaurantTabNum" id="restaurantTabNum" value="{{restaurantInfo.TableCount}}" min="1" required>
-</label>
-<label>Zip Code:
-    <input type="text" name="restaurantZip" id="restaurantZip" value="{{restaurantInfo.RestaurantZip}}" readonly>
-</label>
-<button type="submit" name="restaurantRegButton" id="restaurantRegButton" onclick="return restaurantTimeslotCheck()">Register Restaurant</button>
+<div class="form-group row">
+    <label for="restaurantName" class="col-sm-2 col-form-label">Restaurant Name:</label>
+    <div class="col-sm-10">
+        <input type="text" class="form-control" name="restaurantName" id="restaurantName" value="{{restaurantInfo.RestaurantName}}" readonly>
+    </div> 
+</div>
 
+<div class="form-group row">
+    <label for="restaurantAddress" class="col-sm-2 col-form-label">Restaurant Address:</label>
+    <div class="col-sm-10">
+        <input type="text" class="form-control" name="restaurantAddress" id="restaurantAddress" value="{{restaurantInfo.RestaurantAddress}}" readonly>
+    </div> 
+</div>
+
+<div class="form-group row">
+    <label for="restaurantCity" class="col-sm-2 col-form-label">Restaurant City:</label>
+    <div class="col-sm-10">
+        <input type="text" class="form-control" name="restaurantCity" id="restaurantCity" value="{{restaurantInfo.RestaurantCity}}" readonly>
+    </div> 
+</div>
+
+<div class="form-group row">
+    <label for="restaurantState" class="col-sm-2 col-form-label">Restaurant State:</label>
+    <div class="col-sm-10">
+        <input type="text" class="form-control" name="restaurantState" id="restaurantState" value="{{restaurantInfo.RestaurantState}}" readonly>
+    </div> 
+</div>
+
+<div class="form-group row">
+    <label for="restaurantRegNum" class="col-sm-2 col-form-label">Restaurant Registration Number:</label>
+    <div class="col-sm-10">
+        <input type="text" class="form-control" name="restaurantRegNum" id="restaurantRegNum" value="{{restaurantInfo.RestaurantRegistrationNumber}}" readonly>
+    </div> 
+</div>
+
+<div class="form-group row">
+    <label for="restaurantTime" class="col-sm-2 col-form-label">TimeSlots:</label>
+    <div class="col-sm-10">
+        <input type="text" class="form-control" name="restaurantTime" id="restaurantTime" value="{{restaurantInfo.TimeSlots}}" required>
+        <p>Please provide time slots in mentioned format(HH:MM) separated by comma in 24 hour format, Eg: 10.30,11.30,12.00,13.00</p>
+    </div> 
+</div>
+
+<div class="form-group row">
+    <label for="restaurantTabNum" class="col-sm-2 col-form-label">Table Count:</label>
+    <div class="col-sm-10">
+        <input type="number" class="form-control" name="restaurantTabNum" id="restaurantTabNum" value="{{restaurantInfo.TableCount}}" min="1" required>
+    </div> 
+</div>
+
+<div class="form-group row">
+    <label for="restaurantZip" class="col-sm-2 col-form-label">Zip Code:</label>
+    <div class="col-sm-10">
+        <input type="text" class="form-control" name="restaurantZip" id="restaurantZip" value="{{restaurantInfo.RestaurantZip}}" readonly>
+    </div> 
+</div>
+
+<div class="form-group row">
+  <div class="col-sm-10">
+    <button type="submit" class="btn btn-primary" name="restaurantRegButton" id="restaurantRegButton" onclick="return restaurantTimeslotCheck()">Edit Restaurant Details</button>
+  </div>
+</div>
 
 </form>
