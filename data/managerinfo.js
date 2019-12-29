@@ -104,6 +104,27 @@ async function manager_UpdatePassword(username,password){
      
 }
 
+async function getRestaurant_Using_UserName(username) {
+    if(!username){
+        throw "username is not given";
+    }
+    const managCollection=await managers();
+    const myManager=await managCollection.findOne({username:username});
+    if(!myManager){
+        throw "manager not found";
+    }
+    const restColl=await restaurants();
+    const myRest=await restColl.findOne({RestaurantRegistrationNumber:myManager.restaurantregistrationnumber})
+    if(!myRest){
+        throw "restaurant not found";
+    }
+    else{
+        return myRest._id;
+    }
+}
+
+
+
 async function getReservations(username) {
     if(!username){
         throw "username is not given";
@@ -131,4 +152,4 @@ async function getReservations_Using_RestaurantId(restaurantId){
     const myReserv=await reservColl.find({RestaurantId:restaurantId}).toArray();
     return myReserv;
 }
-module.exports={getReservations_Using_RestaurantId,createManager,getReservations,manager_UpdatePassword,getMnanager_Username,userNameCheck,getManager}
+module.exports={getRestaurant_Using_UserName,getReservations_Using_RestaurantId,createManager,getReservations,manager_UpdatePassword,getMnanager_Username,userNameCheck,getManager}

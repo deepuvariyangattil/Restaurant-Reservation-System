@@ -62,8 +62,8 @@ router.post("/home",async(req,res)=>{
             if(await bcrypt.compare(password,myManager.password)){
                 const myResvData=await managerData.getReservations(username);
                 let restaurantId,anyReservation;
-                anyReservation=myResvData[0];
-                restaurantId=anyReservation.RestaurantId;
+                //anyReservation=myResvData[0];
+                restaurantId=await managerData.getRestaurant_Using_UserName(username);
                 req.session.userLoggedIn=username;
                 req.session.restaurantId=restaurantId;
                 res.render("manager/home",{reservations:myResvData,restaurantId:restaurantId})
